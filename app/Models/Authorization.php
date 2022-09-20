@@ -15,5 +15,11 @@ class Authorization extends Model
         'menu_id',
         'has_access',
     ];
+    // protected $with = ['menu'];
     public $timestamps = false;
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }
