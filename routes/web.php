@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Models\AuthorizationType;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::view('/', 'index')->name('dashboard');
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
 Route::post('/login', [AuthController::class, 'loginUser']);
 Route::get('/logout', [AuthController::class, 'logoutUser']);
+
+Route::get('/authorizations', [AuthorizationController::class, 'index']);
+Route::get('/authorizations/save', [AuthorizationController::class, 'save']);
