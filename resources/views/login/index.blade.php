@@ -37,16 +37,30 @@
                                         <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                     </div>
 
-                                    <form class="user">
+                                    <form class="user" action="/login" method="post">
+                                        @csrf
+
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="username"
-                                                placeholder="Username">
+                                                name="username" placeholder="Username">
                                         </div>
 
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" id="password"
-                                                placeholder="Password">
+                                                name="password" placeholder="Password">
                                         </div>
+
+                                        @error('password')
+                                            <p>{{ $message }}</p>
+                                        @enderror
+
+                                        @error('username')
+                                            {{ $message }}
+                                        @enderror
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Login
+                                        </button>
                                     </form>
                                 </div>
                             </div>
