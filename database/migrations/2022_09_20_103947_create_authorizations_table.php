@@ -24,7 +24,6 @@ return new class extends Migration
             if (Schema::hasTable('menus') && !(Schema::hasColumn('authorizations', 'menu_id'))) {
                 $table->foreignId('menu_id')->constrained('menus');
             }
-            $table->boolean('has_access')->default(false);
         });
     }
 
