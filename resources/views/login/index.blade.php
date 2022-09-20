@@ -37,7 +37,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                     </div>
 
-                                    <form class="user" action="/login" method="post">
+                                    <form class="user" action="{{ url('/login') }}" method="post">
                                         @csrf
 
                                         <div class="form-group">
