@@ -29,7 +29,6 @@ class AuthorizationSeeder extends Seeder
                     'role_id' => $role,
                     'authorization_type_id' => $type->id,
                     'menu_id' => $menu->id,
-                    'has_access' => true,
                 ]);
             }
         }
