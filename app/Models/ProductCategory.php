@@ -13,4 +13,5 @@ class ProductCategory extends Model
         'category',
         'description'
     ];
+    public $timestamps = false;
 }
