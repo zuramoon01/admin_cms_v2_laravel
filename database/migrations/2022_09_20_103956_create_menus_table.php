@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('route', 50)->unique();
+            $table->string('slug', 50)->unique();
         });
 
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'menu_id'))) {
