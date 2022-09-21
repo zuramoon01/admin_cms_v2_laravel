@@ -16,11 +16,24 @@ use App\Http\Controllers\AuthorizationController;
 |
 */
 
-Route::view('/', 'index')->name('dashboard');
 
-Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
-Route::post('/login', [AuthController::class, 'loginUser']);
-Route::get('/logout', [AuthController::class, 'logoutUser']);
+Route::view('/', 'index')->middleware('auth')->name('dashboard');
 
-Route::get('/authorizations', [AuthorizationController::class, 'index']);
-Route::get('/authorizations/save', [AuthorizationController::class, 'save']);
+Route::controller(AuthController::class)->group(function () {
+    Route::middleware('guest')
+        ->prefix('/login')->group(function () {
+            Route::get('/', 'loginPage')->name('login');
+            Route::post('/', 'loginUser');
+        });
+
+    Route::get('/logout', 'logoutUser')->middleware('auth');
+});
+
+Route::middleware(['auth', 'route.authorization'])->group(function () {
+    Route::controller(AuthorizationController::class)
+        ->prefix('/authorizations')
+        ->name('authorization.')->group(function () {
+            Route::get('/', 'index')->name('index.view');
+            Route::post('/save', 'save')->name('save.edit');
+        });
+});
