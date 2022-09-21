@@ -26,7 +26,7 @@ class AuthorizationController extends Controller
         $role = Role::where('id', $data['role'])->first();
 
         for ($i = 0; $i < count($data['menus']); $i++) {
-            $menu = Menu::where('name', $data['menus'])->first();
+            $menu = Menu::where('name', $data['menus'][$i])->first();
 
             for ($j = 0; $j < count($data['types'][$i]); $j++) {
                 if ($data['types'][$i][$j] === 0) {
@@ -52,6 +52,7 @@ class AuthorizationController extends Controller
                 }
             }
         }
+
         return response()->json('success');
     }
 }
