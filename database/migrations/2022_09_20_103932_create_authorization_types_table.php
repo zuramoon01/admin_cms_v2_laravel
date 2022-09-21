@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('authorization_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 50)->unique();
         });
 
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'role_id'))) {

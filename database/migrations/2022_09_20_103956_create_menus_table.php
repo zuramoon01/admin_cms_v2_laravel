@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('route');
+            $table->string('name', 50)->unique();
+            $table->string('route', 50)->unique();
         });
 
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'menu_id'))) {
