@@ -1,26 +1,24 @@
-@extends('layouts.dashboard')
+<x-dashboard>
+    @php
+        $url = request()
+            ->route()
+            ->getPrefix();
+        $categoryValue = '';
+        $descriptionValue = '';
+        
+        if (count(old()) > 0) {
+            $categoryValue = old('category');
+            $descriptionValue = old('description');
+        } elseif (isset($productCategory)) {
+            $categoryValue = $productCategory->category;
+            $descriptionValue = $productCategory->description;
+        }
+        
+        if (isset($productCategory)) {
+            $url = "$url/$productCategory->id";
+        }
+    @endphp
 
-@php
-$url = request()
-    ->route()
-    ->getPrefix();
-$categoryValue = '';
-$descriptionValue = '';
-
-if (count(old()) > 0) {
-    $categoryValue = old('category');
-    $descriptionValue = old('description');
-} elseif (isset($productCategory)) {
-    $categoryValue = $productCategory->category;
-    $descriptionValue = $productCategory->description;
-}
-
-if (isset($productCategory)) {
-    $url = "$url/$productCategory->id";
-}
-@endphp
-
-@section('content')
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Buttons</h1>
 
@@ -44,4 +42,4 @@ if (isset($productCategory)) {
             <button type="submit" class="btn btn-warning align-self-end">Primary</button>
         </div>
     </form>
-@endsection
+</x-dashboard>

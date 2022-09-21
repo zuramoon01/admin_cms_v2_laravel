@@ -1,6 +1,4 @@
-@extends('layouts.dashboard')
-
-@section('content')
+<x-dashboard>
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
@@ -55,24 +53,24 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('js')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <x-slot:js>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script>
-        const deleteItem = (e) => {
-            const productCategory = e.parentElement.parentElement.parentElement;
-            const url = {
-                ...e.dataset
-            }.url;
+        <script>
+            const deleteItem = (e) => {
+                const productCategory = e.parentElement.parentElement.parentElement;
+                const url = {
+                    ...e.dataset
+                }.url;
 
-            axios
-                .delete(url)
-                .then(res => {
-                    if (res.data === 'success') productCategory.remove()
-                })
-                .catch(err => console.log(err))
-        }
-    </script>
-@endsection
+                axios
+                    .delete(url)
+                    .then(res => {
+                        if (res.data === 'success') productCategory.remove()
+                    })
+                    .catch(err => console.log(err))
+            }
+        </script>
+    </x-slot:js>
+</x-dashboard>

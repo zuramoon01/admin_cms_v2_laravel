@@ -1,6 +1,5 @@
-@extends('layouts.dashboard')
+<x-dashboard>
 
-@section('content')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
@@ -52,10 +51,10 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('js')
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <x-slot:js>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script src="{{ asset('/js/authorization/index.js') }}"></script>
-@endsection
+        <script src="{{ asset('/js/authorization/index.js') }}"></script>
+    </x-slot:js>
+</x-dashboard>
