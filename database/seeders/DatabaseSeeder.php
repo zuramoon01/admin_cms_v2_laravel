@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             AuthorizationTypeSeeder::class,
             AuthorizationSeeder::class,
+            ProductCategorySeeder::class,
         ]);
     }
 }
