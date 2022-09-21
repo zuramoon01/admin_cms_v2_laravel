@@ -23,7 +23,7 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-        return to_route('login');
+        return to_route('dashboard');
     }
 
     public function logoutUser(Request $request)
