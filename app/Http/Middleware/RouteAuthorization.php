@@ -24,7 +24,7 @@ class RouteAuthorization
     {
         $routeNameArray = explode(".", $request->route()->getName());
         $routeMenu = $routeNameArray[0];
-        $routeType = $routeNameArray[2];
+        $routeType = count($routeNameArray) - 1;
 
         $role = Role::where('id', auth()->user()->id)->first();
         $menu = Menu::where('name', $routeMenu)->first();
