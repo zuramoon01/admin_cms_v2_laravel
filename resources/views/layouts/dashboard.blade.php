@@ -59,7 +59,7 @@
             </div>
 
             @foreach ($menus as $menu)
-                <!-- Nav Item - {{ $menu->name }} -->
+                <!-- Nav Item - {{ Str::ucfirst($menu->name) }} -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url($menu->route) }}">
                         <i class="fas fa-fw fa-table"></i>
