@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Menu;
+
+use Illuminate\Support\Str;
 
 class MenuSeeder extends Seeder
 {
@@ -16,12 +18,22 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        $menus = ['authorization', 'product category'];
+        $menus = [
+            [
+                'name' => 'authorization',
+                'route' => 'authorizations',
+            ],
+            [
+                'name' => 'product category',
+                'route' => 'product-categories',
+            ],
+        ];
 
         foreach ($menus as $menu) {
             Menu::create([
-                'name' => $menu,
-                'route' => $menu . 's',
+                'name' => $menu['name'],
+                'route' => $menu['route'],
+                'slug' => Str::slug($menu['name'])
             ]);
         }
     }
