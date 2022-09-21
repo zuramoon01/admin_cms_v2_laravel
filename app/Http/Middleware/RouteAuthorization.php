@@ -27,7 +27,8 @@ class RouteAuthorization
         $routeType = $routeNameArray[count($routeNameArray) - 1];
 
         $role = Role::where('id', auth()->user()->id)->first();
-        $menu = Menu::where('name', $routeMenu)->first();
+        $menu = Menu::where('name', $routeMenu)
+            ->orWhere('slug', $routeMenu)->first();
         $authorizationType = AuthorizationType::where('name', $routeType)->first();
 
         $authorization = Authorization::where('role_id', $role->id)
