@@ -16,7 +16,7 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        $menus = ['authorization'];
+        $menus = ['authorization', 'product category'];
 
         foreach ($menus as $menu) {
             Menu::create([
