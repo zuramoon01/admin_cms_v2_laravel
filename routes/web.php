@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
+use App\Http\Controllers\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,16 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
         ->name('authorization.')->group(function () {
             Route::get('/', 'index')->name('index.view');
             Route::post('/save', 'save')->name('save.edit');
+        });
+
+    Route::controller(ProductCategoryController::class)
+        ->prefix('/product-categories')
+        ->name('product-category.')->group(function () {
+            Route::get('/', 'index')->name('index.view');
+            Route::get('/create', 'create')->name('create.add');
+            Route::post('/', 'store')->name('store.add');
+            Route::get('/{product_category:id}', 'edit')->name('edit.edit');
+            Route::put('/{product_category:id}', 'update')->name('update.edit');
+            Route::delete('/{product_category:id}', 'delete')->name('delete.delete');
         });
 });
