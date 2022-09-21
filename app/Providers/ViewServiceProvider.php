@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use App\View\Composers\AuthorizationComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 use App\View\Composers\DashboardComposer;
+use App\View\Composers\AuthorizationComposer;
+use App\View\Composers\ProductCategoryComposer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,6 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer('layouts.dashboard', DashboardComposer::class);
         View::composer('authorization.index', AuthorizationComposer::class);
+        View::composer('product-category.index', ProductCategoryComposer::class);
     }
 }
