@@ -41,7 +41,7 @@
                                     <td class="text-center">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="{{ $type->id }}"
-                                                id="defaultCheck1" @if ($authorizations->where('menu_id', $menu->id)->where('authorization_type_id', $type->id)->first()) checked @endif>
+                                                id="defaultCheck1" @if ($authorizations->where('menu_id', $menu->id)->where('authorization_type_id', $type->id)->first()->has_access) checked @endif>
                                         </div>
                                     </td>
                                 @endforeach
@@ -58,52 +58,45 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        const saveBtn = document.querySelector('#save');
-        const role = document.querySelector('#role').selectedOptions[0].value;
-        const singleMenus = document.querySelectorAll('.single-menu');
-        const menus = [];
-        const types = [];
+        document.addEventListener('DOMContentLoaded', () => {
+            const saveBtn = document.querySelector('#save');
 
-        singleMenus.forEach(e => {
-            const menu = e.children[0];
-            const viewType = e.children[1].children[0].children[0];
-            const addType = e.children[2].children[0].children[0];
-            const editType = e.children[3].children[0].children[0];
-            const deleteType = e.children[4].children[0].children[0];
+            saveBtn.addEventListener('click', () => {
+                const role = document.querySelector('#role').selectedOptions[0].value;
+                const singleMenus = document.querySelectorAll('.single-menu');
 
-            menus.push(menu.innerText);
-            types.push([
-                viewType.checked ? viewType.value : '0',
-                addType.checked ? addType.value : '0',
-                editType.checked ? editType.value : '0',
-                deleteType.checked ? deleteType.value : '0',
-            ]);
-        });
+                const menus = [];
+                const types = [];
 
-        saveBtn.addEventListener('click', () => {
-            let url = 'authorizations/save?';
-            menus.forEach((menu, i) => {
-                url = `${url}${(i === 0) ? '' : '&'}menus[${i}]=${menu}`;
-            });
-            for (let i = 0; i < types.length; i++) {
-                for (let j = 0; j < types[i].length; j++) {
-                    const element = types[i][j];
-                    index
-                }
+                singleMenus.forEach(e => {
+                    const menu = e.children[0];
+                    const viewType = e.children[1].children[0].children[0];
+                    const addType = e.children[2].children[0].children[0];
+                    const editType = e.children[3].children[0].children[0];
+                    const deleteType = e.children[4].children[0].children[0];
 
-                types.forEach((type, i) => {}
-                    url = `${url}&types[${i}]=${menu}`;
-                })
+                    menus.push(menu.innerText);
+                    types.push([
+                        viewType.checked ? viewType.value : 0,
+                        addType.checked ? addType.value : 0,
+                        editType.checked ? editType.value : 0,
+                        deleteType.checked ? deleteType.value : 0,
+                    ]);
+                });
 
-            console.log(url);
-            // axios
-            //     .post('authorizations/save', {
-            //         role,
-            //         menus,
-            //         types,
-            //     })
-            //     .then(res => console.log(res.data))
-            //     .catch(err => console.log(err));
+                const data = JSON.stringify({
+                    role,
+                    menus,
+                    types,
+                });
+
+                axios
+                    .post('authorizations/save', {
+                        data
+                    })
+                    .then(res => console.log(res.data))
+                    .catch(err => console.log(err));
+            })
         })
     </script>
 @endsection
