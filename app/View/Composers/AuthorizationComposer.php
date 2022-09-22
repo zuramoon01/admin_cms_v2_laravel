@@ -10,6 +10,7 @@ use App\Models\Role;
 
 class AuthorizationComposer
 {
+    protected $heading;
     protected $roles;
     protected $colSizes;
     protected $authorizationTypes;
@@ -17,6 +18,7 @@ class AuthorizationComposer
 
     public function __construct()
     {
+        $this->heading = "Authorization";
         $this->roles = Role::all();
         $this->colSizes = [4, 2, 2, 2, 2];
         $this->authorizationTypes = AuthorizationType::all();
@@ -26,6 +28,7 @@ class AuthorizationComposer
     public function compose(View $view)
     {
         $view->with([
+            'heading' => $this->heading,
             'roles' => $this->roles,
             'colSizes' => $this->colSizes,
             'authorizationTypes' => $this->authorizationTypes,
