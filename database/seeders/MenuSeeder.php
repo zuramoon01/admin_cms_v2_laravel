@@ -21,10 +21,12 @@ class MenuSeeder extends Seeder
         $menus = [
             [
                 'name' => 'authorization',
+                'icon' => 'fingerprint',
                 'route' => 'authorizations',
             ],
             [
                 'name' => 'product category',
+                'icon' => 'database',
                 'route' => 'product-categories',
             ],
         ];
@@ -32,6 +34,7 @@ class MenuSeeder extends Seeder
         foreach ($menus as $menu) {
             Menu::create([
                 'name' => $menu['name'],
+                'icon' => $menu['icon'],
                 'route' => $menu['route'],
                 'slug' => Str::slug($menu['name'])
             ]);
