@@ -63,7 +63,7 @@ if ($routeType === 'add') {
                 @if ($input['type'] === 'text')
                     <x-partials._input-text :name="$input['name']" :label="$input['label']" :value="$value" />
                 @elseif($input['type'] === 'textarea')
-                    <x-partials._textarea :name="$input['name']" :label="$input['label']" :value="$value" />
+                    <x-partials._input-textarea :name="$input['name']" :label="$input['label']" :value="$value" />
                 @endif
             @endforeach
 
