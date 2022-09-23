@@ -29,7 +29,6 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('components.dashboard.partials._sidebar', DashboardComposer::class);
         View::composer('authorization.index', AuthorizationComposer::class);
         View::composer(['product-category.index', 'product-category.form'], ProductCategoryComposer::class);
         View::composer(['product.index', 'product.form'], ProductComposer::class);

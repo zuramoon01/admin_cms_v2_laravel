@@ -5,6 +5,7 @@ namespace App\View\Composers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\Menu;
 use App\Models\ProductCategory;
 
 class ProductCategoryComposer
@@ -17,6 +18,7 @@ class ProductCategoryComposer
 
     public function __construct()
     {
+        $this->menus = Menu::all();
         $this->heading = "Product Category";
         $this->colSizes = [1, 3, 7, 1];
         $this->titles = Schema::getColumnListing('product_categories');
@@ -44,6 +46,7 @@ class ProductCategoryComposer
 
         if ($viewType === 'index') {
             $view->with([
+                'menus' => $this->menus,
                 'heading' => $this->heading,
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
@@ -51,6 +54,7 @@ class ProductCategoryComposer
             ]);
         } elseif ($viewType === 'form') {
             $view->with([
+                'menus' => $this->menus,
                 'heading' => $this->heading,
                 'formInputs' => $this->formInputs,
             ]);

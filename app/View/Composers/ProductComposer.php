@@ -5,12 +5,13 @@ namespace App\View\Composers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Schema;
 
+use App\Models\Menu;
 use App\Models\Product;
 use App\Models\ProductCategory;
 
 class ProductComposer
 {
-
+    protected $menus;
     protected $heading;
     protected $colSizes;
     protected $titles;
@@ -20,6 +21,7 @@ class ProductComposer
 
     public function __construct()
     {
+        $this->menus = Menu::all();
         $this->heading = "Product";
         $this->colSizes = [1, 2, 2, 3, 3, 1, 2];
         $this->titles = [];
@@ -119,6 +121,7 @@ class ProductComposer
 
         if ($viewType === 'index') {
             $view->with([
+                'menus' => $this->menus,
                 'heading' => $this->heading,
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
@@ -126,6 +129,7 @@ class ProductComposer
             ]);
         } elseif ($viewType === 'form') {
             $view->with([
+                'menus' => $this->menus,
                 'heading' => $this->heading,
                 'formInputs' => $this->formInputs,
                 'productCategories' => $this->productCategories,

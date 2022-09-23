@@ -1,4 +1,4 @@
-<x-dashboard>
+<x-dashboard :menus="$menus">
     <x-table>
         <x-slot:heading>{{ $heading }}</x-slot:heading>
 

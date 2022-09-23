@@ -1,3 +1,5 @@
+@props(['menus'])
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <x-dashboard.partials._sidebar />
+        <x-dashboard.partials._sidebar :menus="$menus" />
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

@@ -1,3 +1,5 @@
+@props(['menus'])
+
 @php
 $routeName = explode(
     '.',

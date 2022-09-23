@@ -38,7 +38,7 @@ if ($routeType === 'add') {
 }
 @endphp
 
-<x-dashboard>
+<x-dashboard :menus="$menus">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">{{ Str::ucfirst($routeType) . " $heading" }}</h1>
