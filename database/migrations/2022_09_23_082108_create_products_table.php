@@ -24,10 +24,10 @@ return new class extends Migration
             $table->decimal('purchase_price', $precision = 18);
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedTinyInteger('status', 1);
-            $table->unsignedTinyInteger('new_product', 1);
-            $table->unsignedTinyInteger('best_seller', 1);
-            $table->unsignedTinyInteger('featured', 1);
+            $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('new_product');
+            $table->unsignedTinyInteger('best_seller');
+            $table->unsignedTinyInteger('featured');
             $table->timestamps();
         });
     }
