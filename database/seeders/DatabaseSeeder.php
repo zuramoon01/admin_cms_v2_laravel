@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AuthorizationTypeSeeder::class,
             AuthorizationSeeder::class,
             ProductCategorySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }
