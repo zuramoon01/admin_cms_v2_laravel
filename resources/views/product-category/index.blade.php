@@ -50,6 +50,6 @@
     <x-slot:js>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        <script src="{{ asset('/js/product-category/index.js') }}"></script>
+        <script src="{{ asset('/js/all/index.js') }}"></script>
     </x-slot:js>
 </x-dashboard>
