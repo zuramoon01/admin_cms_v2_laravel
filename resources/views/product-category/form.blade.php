@@ -1,45 +1,74 @@
+@php
+$url = request()
+    ->route()
+    ->getPrefix();
+$categoryValue = '';
+$descriptionValue = '';
+
+if (count(old()) > 0) {
+    $categoryValue = old('category');
+    $descriptionValue = old('description');
+} elseif (isset($productCategory)) {
+    $categoryValue = $productCategory->category;
+    $descriptionValue = $productCategory->description;
+}
+
+if (isset($productCategory)) {
+    $url = "$url/$productCategory->id";
+}
+
+$routeName = explode(
+    '.',
+    request()
+        ->route()
+        ->getName(),
+);
+$routeType = $routeName[count($routeName) - 1];
+
+if ($routeType === 'add') {
+    $button = [
+        'name' => 'Create',
+        'type' => 'primary',
+    ];
+} elseif ($routeType === 'edit') {
+    $button = [
+        'name' => 'Edit',
+        'type' => 'warning',
+    ];
+}
+@endphp
+
 <x-dashboard>
-    @php
-        $url = request()
-            ->route()
-            ->getPrefix();
-        $categoryValue = '';
-        $descriptionValue = '';
-        
-        if (count(old()) > 0) {
-            $categoryValue = old('category');
-            $descriptionValue = old('description');
-        } elseif (isset($productCategory)) {
-            $categoryValue = $productCategory->category;
-            $descriptionValue = $productCategory->description;
-        }
-        
-        if (isset($productCategory)) {
-            $url = "$url/$productCategory->id";
-        }
-    @endphp
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Buttons</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ Str::ucfirst($routeType) . " $heading" }}</h1>
 
-    <form class="row" action="{{ url($url) }}" method="post">
-        @isset($productCategory)
-            @method('put')
-        @endisset
-        @csrf
+    <x-partials._form :action="url($url)">
+        <x-slot:method>
+            @isset($productCategory)
+                @method('put')
+            @endisset
+        </x-slot:method>
 
         <div class="col-lg-6 d-flex flex-column">
-            <div class="form-group">
-                <label for="category">Category</label>
-                <input type="text" class="form-control" id="category" name="category" value="{{ $categoryValue }}">
-            </div>
+            @foreach ($formInputs as $input)
+                @php
+                    if ($input['name'] === 'category') {
+                        $value = $categoryValue;
+                    } elseif ($input['name'] === 'description') {
+                        $value = $descriptionValue;
+                    }
+                @endphp
 
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3" name="description">{{ $descriptionValue }}</textarea>
-            </div>
+                @if ($input['type'] === 'text')
+                    <x-partials._input-text :name="$input['name']" :label="$input['label']" :value="$value" />
+                @elseif($input['type'] === 'textarea')
+                    <x-partials._textarea :name="$input['name']" :label="$input['label']" :value="$value" />
+                @endif
+            @endforeach
 
-            <button type="submit" class="btn btn-warning align-self-end">Primary</button>
+            <button type="submit" class="btn btn-{{ $button['type'] }} align-self-end">{{ $button['name'] }}</button>
         </div>
-    </form>
+    </x-partials._form>
+
 </x-dashboard>
