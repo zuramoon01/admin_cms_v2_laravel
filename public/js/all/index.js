@@ -1,5 +1,5 @@
 const deleteItem = (e) => {
-    const productCategory = e.parentElement.parentElement.parentElement;
+    const item = e.parentElement.parentElement.parentElement;
     const url = {
         ...e.dataset,
     }.url;
@@ -7,7 +7,7 @@ const deleteItem = (e) => {
     axios
         .delete(url)
         .then((res) => {
-            if (res.data === "success") productCategory.remove();
+            if (res.data === "success") item.remove();
         })
         .catch((err) => console.log(err));
 };
