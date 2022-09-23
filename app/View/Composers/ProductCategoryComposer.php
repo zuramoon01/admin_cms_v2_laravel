@@ -42,11 +42,18 @@ class ProductCategoryComposer
         $viewName = explode(".", $view->name());
         $viewType = $viewName[count($viewName) - 1];
 
-        $view->with([
-            'heading' => $this->heading,
-            'colSizes' => $this->colSizes,
-            'titles' => $this->titles,
-            'productCategories' => $this->productCategories,
-        ]);
+        if ($viewType === 'index') {
+            $view->with([
+                'heading' => $this->heading,
+                'colSizes' => $this->colSizes,
+                'titles' => $this->titles,
+                'productCategories' => $this->productCategories,
+            ]);
+        } elseif ($viewType === 'form') {
+            $view->with([
+                'heading' => $this->heading,
+                'formInputs' => $this->formInputs,
+            ]);
+        }
     }
 }
