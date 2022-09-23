@@ -22,4 +22,9 @@ class Product extends Model
         'best_seller',
         'featured',
     ];
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_categories_id');
+    }
 }
