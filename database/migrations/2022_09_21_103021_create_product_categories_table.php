@@ -17,6 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('category', 100);
             $table->text('description')->nullable();
+
+            if (Schema::hasTable('products') && !Schema::hasColumn('products', 'product_categories_id')) {
+                Schema::table('products', function (Blueprint $table) {
+                    $table->foreignId('product_categories_id')->after('id')->constrained('product_categories');
+                });
+            }
         });
     }
 
