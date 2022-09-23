@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Product extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class Product extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,14 +27,14 @@ class Product extends FormRequest
             'product_categories_id' => 'required|numeric',
             'name' => 'required|max:200',
             'code' => 'required|max:50',
-            'price' => 'required|max_digits:18',
-            'purchase_price' => 'required|max_digits:18',
+            'price' => 'required|max:18',
+            'purchase_price' => 'required|max:18',
             'short_description' => 'nullable|max:250',
             'description' => 'nullable',
-            'status' => 'required|numeric|min:0|max:1',
-            'new_product' => 'required|numeric|min:0|max:1',
-            'best_seller' => 'required|numeric|min:0|max:1',
-            'featured' => 'required|numeric|min:0|max:1',
+            'status' => 'numeric|min:0|max:1|nullable',
+            'new_product' => 'numeric|min:0|max:1|nullable',
+            'best_seller' => 'numeric|min:0|max:1|nullable',
+            'featured' => 'numeric|min:0|max:1|nullable',
         ];
     }
 }
