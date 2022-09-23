@@ -45,7 +45,7 @@ class ProductCategoryController extends Controller
         return to_route('product-category.index.view');
     }
 
-    public function delete(ProductCategory $productCategory)
+    public function destroy(ProductCategory $productCategory)
     {
         ProductCategory::destroy($productCategory->id);
 
