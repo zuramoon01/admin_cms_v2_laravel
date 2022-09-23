@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,17 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::post('/', 'store')->name('store.add');
             Route::get('/{product_category:id}', 'edit')->name('edit.edit');
             Route::put('/{product_category:id}', 'update')->name('update.edit');
-            Route::delete('/{product_category:id}', 'delete')->name('delete.delete');
+            Route::delete('/{product_category:id}', 'destroy')->name('destroy.delete');
+        });
+
+    Route::controller(ProductController::class)
+        ->prefix('/products')
+        ->name('product.')->group(function () {
+            Route::get('/', 'index')->name('index.view');
+            Route::get('/create', 'create')->name('create.add');
+            Route::post('/', 'store')->name('store.add');
+            Route::get('/{product:id}', 'edit')->name('edit.edit');
+            Route::put('/{product:id}', 'update')->name('update.edit');
+            Route::delete('/{product:id}', 'destroy')->name('destroy.delete');
         });
 });
