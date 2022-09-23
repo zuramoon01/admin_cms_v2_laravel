@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Schema;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 
 class ProductComposer
 {
@@ -15,6 +16,7 @@ class ProductComposer
     protected $titles;
     protected $product;
     protected $formInputs;
+    protected $productCategories;
 
     public function __construct()
     {
@@ -24,16 +26,67 @@ class ProductComposer
         $this->products = Product::all();
         $this->formInputs = [
             [
-                "name" => 'category',
-                'label' => 'Category',
-                'type' => 'text',
+                [
+                    "name" => 'product_categories_id',
+                    'label' => 'Category',
+                    'type' => 'select',
+                ],
+                [
+                    "name" => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                ],
+                [
+                    "name" => 'code',
+                    'label' => 'Code',
+                    'type' => 'text',
+                ],
+                [
+                    "name" => 'status',
+                    'label' => 'Status',
+                    'type' => 'check',
+                ],
+                [
+                    "name" => 'new_product',
+                    'label' => 'New Product',
+                    'type' => 'check',
+                ],
+                [
+                    "name" => 'best_seller',
+                    'label' => 'Best Seller',
+                    'type' => 'check',
+                ],
+                [
+                    "name" => 'featured',
+                    'label' => 'Featured',
+                    'type' => 'check',
+                ],
+
             ],
             [
-                "name" => 'description',
-                'label' => 'Description',
-                'type' => 'textarea',
+                [
+                    "name" => 'price',
+                    'label' => 'Price',
+                    'type' => 'number',
+                ],
+                [
+                    "name" => 'purchase_price',
+                    'label' => 'Purchase Price',
+                    'type' => 'number',
+                ],
+                [
+                    "name" => 'short_description',
+                    'label' => 'Short Description',
+                    'type' => 'textarea',
+                ],
+                [
+                    "name" => 'description',
+                    'label' => 'Description',
+                    'type' => 'textarea',
+                ],
             ],
         ];
+        $this->productCategories = ProductCategory::all();
 
         foreach (Schema::getColumnListing('products') as $i => $title) {
             if (!in_array($title, [
@@ -75,6 +128,7 @@ class ProductComposer
             $view->with([
                 'heading' => $this->heading,
                 'formInputs' => $this->formInputs,
+                'productCategories' => $this->productCategories,
             ]);
         }
     }
