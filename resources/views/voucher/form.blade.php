@@ -16,17 +16,17 @@ if (count(old()) > 0) {
     $startDateValue = old('start_date');
     $endDateValue = old('end_date');
     $statusValue = old('status');
-} elseif (isset($product)) {
-    $codeValue = $product->code;
-    $typeValue = $product->type;
-    $discValueValue = $product->disc_value;
-    $startDateValue = $product->start_date;
-    $endDateValue = $product->end_date;
-    $statusValue = $product->status;
+} elseif (isset($voucher)) {
+    $codeValue = $voucher->code;
+    $typeValue = $voucher->type;
+    $discValueValue = $voucher->disc_value;
+    $startDateValue = $voucher->start_date;
+    $endDateValue = $voucher->end_date;
+    $statusValue = $voucher->status;
 }
 
-if (isset($product)) {
-    $url = "$url/$product->id";
+if (isset($voucher)) {
+    $url = "$url/$voucher->id";
 }
 
 $routeName = explode(
@@ -56,7 +56,7 @@ if ($routeType === 'add') {
 
     <x-partials._form :action="url($url)">
         <x-slot:method>
-            @isset($product)
+            @isset($voucher)
                 @method('put')
             @endisset
         </x-slot:method>
