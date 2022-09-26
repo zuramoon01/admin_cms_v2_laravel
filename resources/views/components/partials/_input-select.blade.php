@@ -1,7 +1,9 @@
-@props(['name', 'label', 'routeType'])
+@props(['name', 'label', 'routeType', 'isLabel'])
 
 <div class="form-group">
-    <label for="{{ $name }}">{{ $label }}</label>
+    @if (!isset($isLabel))
+        <label for="{{ $name }}">{{ $label }}</label>
+    @endif
     <select id="{{ $name }}" class="form-control" name="{{ $name }}">
         <option @selected($routeType === 'add')>Choose {{ $label }}</option>
 
