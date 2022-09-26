@@ -39,6 +39,11 @@ class MenuSeeder extends Seeder
                 'icon' => 'ticket-alt',
                 'route' => 'vouchers',
             ],
+            [
+                'name' => 'transaction',
+                'icon' => 'credit-card',
+                'route' => 'transactions',
+            ],
         ];
 
         foreach ($menus as $menu) {
