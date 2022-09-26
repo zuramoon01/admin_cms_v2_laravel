@@ -94,7 +94,7 @@ if ($routeType === 'add') {
                         <div class="form-group">
                             @foreach ($input['data'] as $i => $data)
                                 <x-partials._input-radio :name="$name" :label="$data['label']" :no="$i"
-                                    :value="$data['value']" />
+                                    :value="$data['value']" :oldValue="$value" />
                             @endforeach
                         </div>
                     @elseif($type === 'date')
