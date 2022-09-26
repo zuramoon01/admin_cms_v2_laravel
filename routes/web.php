@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +60,11 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::get('/{product:id}', 'edit')->name('edit.edit');
             Route::put('/{product:id}', 'update')->name('update.edit');
             Route::delete('/{product:id}', 'destroy')->name('destroy.delete');
+        });
+
+    Route::controller(VoucherController::class)
+        ->prefix('/vouchers')
+        ->name('voucher.')->group(function () {
+            Route::get('/', 'index')->name('index.view');
         });
 });
