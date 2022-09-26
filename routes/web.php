@@ -66,5 +66,6 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
         ->prefix('/vouchers')
         ->name('voucher.')->group(function () {
             Route::get('/', 'index')->name('index.view');
+            Route::get('/create', 'create')->name('create.add');
         });
 });
