@@ -69,5 +69,6 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::get('/create', 'create')->name('create.add');
             Route::post('/', 'store')->name('store.add');
             Route::get('/{voucher:id}', 'edit')->name('edit.edit');
+            Route::put('/{voucher:id}', 'update')->name('update.edit');
         });
 });
