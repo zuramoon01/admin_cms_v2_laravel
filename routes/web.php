@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VoucherController;
 
 /*
@@ -71,5 +72,11 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::get('/{voucher:id}', 'edit')->name('edit.edit');
             Route::put('/{voucher:id}', 'update')->name('update.edit');
             Route::delete('/{voucher:id}', 'destroy')->name('destroy.delete');
+        });
+
+    Route::controller(TransactionController::class)
+        ->prefix('/transactions')
+        ->name('transaction.')->group(function () {
+            Route::get('/', 'index')->name('index.view');
         });
 });
