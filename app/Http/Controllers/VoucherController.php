@@ -10,4 +10,9 @@ class VoucherController extends Controller
     {
         return view('voucher.index');
     }
+
+    public function create()
+    {
+        return view('voucher.form');
+    }
 }
