@@ -34,6 +34,11 @@ class MenuSeeder extends Seeder
                 'icon' => 'hockey-puck',
                 'route' => 'products',
             ],
+            [
+                'name' => 'voucher',
+                'icon' => 'ticket-alt',
+                'route' => 'vouchers',
+            ],
         ];
 
         foreach ($menus as $menu) {
