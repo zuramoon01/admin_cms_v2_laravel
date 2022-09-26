@@ -22,6 +22,52 @@ class VoucherComposer
         $this->colSizes = [1, 2, 2, 2, 2, 2, 1];
         $this->titles = [];
         $this->vouchers = Voucher::all();
+        $this->formInputs = [
+            [
+                [
+                    "name" => 'code',
+                    'label' => 'Code',
+                    'type' => 'text',
+                ],
+                [
+                    "name" => 'type',
+                    'type' => 'radio',
+                    'data' => [
+                        [
+                            'label' => 'Flat Discount',
+                            'value' => 1,
+                        ],
+                        [
+                            'label' => 'Percent Discount',
+                            'value' => 2,
+                        ],
+                    ],
+                ],
+                [
+                    "name" => 'disc_value',
+                    'label' => 'Discount Value',
+                    'type' => 'number',
+                ],
+
+            ],
+            [
+                [
+                    "name" => 'start_date',
+                    'label' => 'Start Date',
+                    'type' => 'date',
+                ],
+                [
+                    "name" => 'end_date',
+                    'label' => 'End Date',
+                    'type' => 'date',
+                ],
+                [
+                    "name" => 'status',
+                    'label' => 'Status',
+                    'type' => 'check',
+                ],
+            ],
+        ];
 
         foreach (Schema::getColumnListing('vouchers') as $i => $title) {
             if (!in_array($title, [
@@ -54,6 +100,12 @@ class VoucherComposer
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
                 'vouchers' => $this->vouchers,
+            ]);
+        } elseif ($viewType === 'form') {
+            $view->with([
+                'menus' => $this->menus,
+                'heading' => $this->heading,
+                'formInputs' => $this->formInputs,
             ]);
         }
     }
