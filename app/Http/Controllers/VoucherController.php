@@ -52,4 +52,11 @@ class VoucherController extends Controller
 
         return to_route('voucher.index.view');
     }
+
+    public function destroy(Voucher $voucher)
+    {
+        Voucher::destroy($voucher->id);
+
+        return response()->json('success');
+    }
 }
