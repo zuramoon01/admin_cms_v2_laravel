@@ -5,7 +5,7 @@
         <label for="{{ $name }}">{{ $label }}</label>
     @endif
     <select id="{{ $name }}" class="form-control" name="{{ $name }}">
-        <option @selected($routeType === 'add')>Choose {{ $label }}</option>
+        <option @selected($routeType === 'add') value="">Choose {{ $label }}</option>
 
         {{ $slot }}
     </select>
