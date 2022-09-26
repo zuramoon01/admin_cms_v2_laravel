@@ -9,6 +9,7 @@ use App\View\Composers\DashboardComposer;
 use App\View\Composers\AuthorizationComposer;
 use App\View\Composers\ProductCategoryComposer;
 use App\View\Composers\ProductComposer;
+use App\View\Composers\VoucherComposer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -32,5 +33,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('authorization.index', AuthorizationComposer::class);
         View::composer(['product-category.index', 'product-category.form'], ProductCategoryComposer::class);
         View::composer(['product.index', 'product.form'], ProductComposer::class);
+        View::composer(['voucher.index'], VoucherComposer::class);
     }
 }
