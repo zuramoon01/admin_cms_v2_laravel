@@ -16,17 +16,17 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        $dataProductCategory = [
+        $productCategories = [
             [
                 'category' => 'Elektronik',
                 'description' => 'Alat - alat elektronik',
             ],
         ];
 
-        foreach ($dataProductCategory as $data) {
+        foreach ($productCategories as $productCategory) {
             ProductCategory::create([
-                'category' => $data['category'],
-                'description' => $data['description'],
+                'category' => $productCategory['category'],
+                'description' => $productCategory['description'],
             ]);
         }
     }
