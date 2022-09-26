@@ -10,4 +10,9 @@ class TransactionController extends Controller
     {
         return view('transaction.index');
     }
+
+    public function create()
+    {
+        return view('transaction.form');
+    }
 }
