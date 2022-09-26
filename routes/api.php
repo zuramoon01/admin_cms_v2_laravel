@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/product/{product:id}', function (Product $product) {
+    return response()->json($product);
+});
+
+Route::get('/voucher/{voucher:id}', function (Voucher $voucher) {
+    return response()->json($voucher);
 });
