@@ -26,4 +26,9 @@ class VoucherController extends Controller
 
         return to_route('voucher.index.view');
     }
+
+    public function edit(Voucher $voucher)
+    {
+        return view('voucher.form', ['voucher' => $voucher]);
+    }
 }
