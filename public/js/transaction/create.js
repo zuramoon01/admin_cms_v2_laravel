@@ -81,7 +81,7 @@ const getTransaction = () => {
                         listProduct.innerHTML += `
                             <li class="list-group-item d-flex p-2" data-id="${id}">
                                 <input type="hidden" name="product_id[]" value="${data.id}">
-                                <input type="hidden" name="product_qty[]" value="${qtyProduct.value}">
+                                <input type="hidden" name="product_qty[]" value="${qty}">
                                 <p class="col-md-6 m-0 p-0 text-center">${name}</p>
                                 <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
                                 <p class="col-md-3 m-0 p-0 text-center">${subTotal}</p>
