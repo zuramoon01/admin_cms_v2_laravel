@@ -47,6 +47,9 @@
                     @else
                         <span class="badge badge-danger">non active</span>
                     @endif
+                    @if (date('Y-m-d') > $voucher->end_date)
+                        <span class="badge badge-secondary">expired</span>
+                    @endif
                 </td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center">
