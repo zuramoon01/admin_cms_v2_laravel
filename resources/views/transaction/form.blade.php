@@ -2,43 +2,31 @@
 $url = request()
     ->route()
     ->getPrefix();
-$transactionIdValue = '';
 $customerNameValue = '';
 $customerEmailValue = '';
 $customerPhoneValue = '';
-$subTotalValue = '';
-$totalValue = '';
-$totalPurchaseValue = '';
 $additonalRequestValue = '';
 $paymentMethodValue = '';
 $statusValue = '';
 
 if (count(old()) > 0) {
-    $transactionIdValue = old('transaction_id');
     $customerNameValue = old('customer_name');
     $customerEmailValue = old('customer_email');
     $customerPhoneValue = old('customer_phone');
-    $subTotalValue = old('sub_total');
-    $totalValue = old('total');
-    $totalPurchaseValue = old('purchase_total');
     $additonalRequestValue = old('additional_request');
     $paymentMethodValue = old('payment_method');
     $statusValue = old('status');
 } elseif (isset($transaction)) {
-    $transactionIdValue = $transaction->transaction_id;
     $customerNameValue = $transaction->customer_name;
     $customerEmailValue = $transaction->customer_email;
     $customerPhoneValue = $transaction->customer_phone;
-    $subTotalValue = $transaction->sub_total;
-    $totalValue = $transaction->total;
-    $totalPurchaseValue = $transaction->purchase_total;
     $additonalRequestValue = $transaction->additional_request;
     $paymentMethodValue = $transaction->payment_method;
     $statusValue = $transaction->status;
 }
 
-if (isset($product)) {
-    $url = "$url/$product->id";
+if (isset($transaction)) {
+    $url = "$url/$transaction->id";
 }
 
 $routeName = explode(
@@ -81,20 +69,12 @@ if ($routeType === 'add') {
                     $type = $input['type'];
                     $label = $input['label'];
                     
-                    if ($name === 'transaction_id') {
-                        $value = $transactionIdValue;
-                    } elseif ($name === 'customer_name') {
+                    if ($name === 'customer_name') {
                         $value = $customerNameValue;
                     } elseif ($name === 'customer_email') {
                         $value = $customerEmailValue;
                     } elseif ($name === 'customer_phone') {
                         $value = $customerPhoneValue;
-                    } elseif ($name === 'sub_total') {
-                        $value = $subTotalValue;
-                    } elseif ($name === 'total') {
-                        $value = $totalValue;
-                    } elseif ($name === 'purchase_total') {
-                        $value = $totalPurchaseValue;
                     } elseif ($name === 'additional_request') {
                         $value = $additonalRequestValue;
                     } elseif ($name === 'payment_method') {
@@ -104,13 +84,15 @@ if ($routeType === 'add') {
                     }
                 @endphp
 
+                <input type="hidden" id="transaction-id" name="transaction-id" value="{{ $transaction->id }}">
+
                 @if ($type === 'text')
                     <x-partials._input-text :name="$name" :label="$label" :value="$value" />
                 @elseif($type === 'select')
                     <x-partials._input-select :name="$name" :label="$label" :routeType="$routeType">
                         @foreach ($input['data'] as $data)
                             <option
-                                @if ($name === 'status' && $value === '') @selected($data['value'] === 1) @else @selected($data['value'] == $value) @endif
+                                @if ($name === 'status' && $value === '') @selected($data['value'] === 1) @else @selected($data['value'] == $value || $data['label'] == $value) @endif
                                 value="{{ $data['value'] }}">
                                 {{ $data['label'] }}
                             </option>
@@ -149,7 +131,9 @@ if ($routeType === 'add') {
             <div>
                 <x-partials._input-select name="voucher" label="Voucher" routeType="add" isLabel=false>
                     @foreach ($vouchers->where('status', 1) as $voucher)
-                        <option value="{{ $voucher->id }}" @selected($voucher->id == old('voucher'))>
+                        <option value="{{ $voucher->id }}"
+                            @if (old('voucher')) @selected($voucher->id == old('voucher')) @else
+                            @selected($voucher->id === $voucherUsage->vouchers_id) @endif>
                             {{ Str::ucfirst($voucher->code) }}</option>
                     @endforeach
                 </x-partials._input-select>
@@ -180,6 +164,10 @@ if ($routeType === 'add') {
     <x-slot:js>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        <script src="{{ asset('js/transaction/create.js') }}"></script>
+        @if ($routeType === 'add')
+            <script src="{{ asset('js/transaction/create.js') }}"></script>
+        @elseif($routeType === 'edit')
+            <script src="{{ asset('js/transaction/edit.js') }}"></script>
+        @endif
     </x-slot:js>
 </x-dashboard>
