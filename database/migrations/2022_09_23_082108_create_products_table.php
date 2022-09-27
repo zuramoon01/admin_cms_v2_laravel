@@ -30,6 +30,12 @@ return new class extends Migration
             $table->unsignedTinyInteger('featured');
             $table->timestamps();
         });
+
+        if (Schema::hasTable('transaction_details') && !Schema::hasColumn('transaction_details', 'products_id')) {
+            Schema::table('transaction_details', function (Blueprint $table) {
+                $table->foreignId('products_id');
+            });
+        }
     }
 
     /**

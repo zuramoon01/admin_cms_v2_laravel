@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id', 50);
+            $table->string('transaction_id', 50)->unique();
             $table->string('customer_name', 200);
             $table->string('customer_email', 100);
             $table->string('customer_phone', 45)->nullable();
@@ -27,6 +27,12 @@ return new class extends Migration
             $table->unsignedTinyInteger('status');
             $table->timestamps();
         });
+
+        if (Schema::hasTable('products') && !Schema::hasColumn('transaction_details', 'products_id')) {
+            Schema::table('transaction_details', function (Blueprint $table) {
+                $table->foreignId('products_id');
+            });
+        }
     }
 
     /**
