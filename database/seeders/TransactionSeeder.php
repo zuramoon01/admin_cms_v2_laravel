@@ -16,8 +16,7 @@ class TransactionSeeder extends Seeder
     public function run()
     {
         Transaction::create([
-
-            'transaction_id' => 'TR20220926001',
+            'transaction_id' => 'TR' . date('Ymd') . '001',
             'customer_name' => 'Zura',
             'customer_email' => 'zura@gmail.com',
             'customer_phone' => '082115846645',
