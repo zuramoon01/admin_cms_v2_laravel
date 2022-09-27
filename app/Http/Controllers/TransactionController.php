@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
+use App\Models\VoucherUsage;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -71,5 +72,15 @@ class TransactionController extends Controller
         VoucherUsageController::store($voucherValidated, $transaction);
 
         return to_route('transaction.index.view');
+    }
+
+    public function edit(Transaction $transaction)
+    {
+        $voucherUsage = VoucherUsage::where('transactions_id', $transaction->id)->first();
+
+        return view('transaction.form', [
+            'transaction' => $transaction,
+            'voucherUsage' => $voucherUsage
+        ]);
     }
 }
