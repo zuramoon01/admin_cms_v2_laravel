@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Product;
+use App\Models\TransactionDetail;
 use App\Models\Voucher;
+use App\Models\VoucherUsage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +28,16 @@ Route::get('/product/{product:id}', function (Product $product) {
 
 Route::get('/voucher/{voucher:id}', function (Voucher $voucher) {
     return response()->json($voucher);
+});
+
+Route::get('/transaction-detail/transaction/{id}', function ($id) {
+    $transactionDetails = TransactionDetail::where('transactions_id', $id)->get();
+
+    return response()->json($transactionDetails);
+});
+
+Route::get('/voucher-usage/transaction/{id}', function ($id) {
+    $voucherUsage = VoucherUsage::where('transactions_id', $id)->first();
+
+    return response()->json($voucherUsage);
 });
