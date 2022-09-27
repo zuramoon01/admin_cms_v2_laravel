@@ -80,5 +80,6 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::get('/', 'index')->name('index.view');
             Route::get('/create', 'create')->name('create.add');
             Route::post('/', 'store')->name('store.add');
+            Route::get('/{transaction:id}', 'edit')->name('edit.edit');
         });
 });
