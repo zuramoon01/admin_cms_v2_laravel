@@ -33,7 +33,11 @@ return new class extends Migration
 
         if (Schema::hasTable('transaction_details') && !Schema::hasColumn('transaction_details', 'products_id')) {
             Schema::table('transaction_details', function (Blueprint $table) {
-                $table->foreignId('products_id');
+                if (Schema::hasColumn('transaction_datails', 'transactions_id')) {
+                    $table->foreignId('products_id')->after('transactions_id')->constrained('products');
+                } else {
+                    $table->foreignId('products_id')->constrained('products');
+                }
             });
         }
     }

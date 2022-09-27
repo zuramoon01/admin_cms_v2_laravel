@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
             if (Schema::hasTable('transactions') && !Schema::hasColumn('transaction_details', 'transactions_id')) {
-                $table->foreignId('transactions_id');
+                $table->foreignId('transactions_id')->constrained('transactions');
             }
             if (Schema::hasTable('products') && !Schema::hasColumn('transaction_details', 'products_id')) {
-                $table->foreignId('products_id');
+                $table->foreignId('products_id')->constrained('products');
             }
             $table->unsignedInteger('qty');
             $table->decimal('price_satuan', $precision = 18);

@@ -28,7 +28,7 @@ return new class extends Migration
                 } else if (Schema::hasColumn('authorizations', 'role_id')) {
                     $table->foreignId('menu_id')->after('role_id')->constrained('menus');
                 } else {
-                    $table->foreignId('menu_id')->constrained('menus');
+                    $table->foreignId('menu_id')->after('id')->constrained('menus');
                 }
             });
         }

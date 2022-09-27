@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name', 50);
         });
 
-        if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'role_id'))) {
+        if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'authorization_type_id'))) {
             Schema::table('authorizations', function (Blueprint $table) {
                 if (Schema::hasColumn('authorizations', 'role_id')) {
                     $table->foreignId('authorization_type_id')->after('role_id')->constrained('authorization_types');

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        if (Schema::hasTable('products') && !Schema::hasColumn('transaction_details', 'products_id')) {
+        if (Schema::hasTable('transaction_details') && !Schema::hasColumn('transaction_details', 'transaction_id')) {
             Schema::table('transaction_details', function (Blueprint $table) {
                 $table->foreignId('products_id');
             });
