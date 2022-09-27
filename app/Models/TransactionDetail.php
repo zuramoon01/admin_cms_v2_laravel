@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class TransactionDetail extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'transactions_id',
+        'products_id',
+        'qty',
+        'price_satuan',
+        'price_total',
+        'price_purchase_satuan',
+        'price_purchase_total',
+    ];
+    public $timestamps = false;
 }
