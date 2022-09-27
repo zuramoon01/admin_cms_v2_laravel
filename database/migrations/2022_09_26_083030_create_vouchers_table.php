@@ -26,7 +26,11 @@ return new class extends Migration
 
         if (Schema::hasTable('voucher_usages') && !Schema::hasColumn('voucher_usages', 'vouchers_id')) {
             Schema::table('voucher_usages', function (Blueprint $table) {
-                $table->foreignId('vouchers_id')->after('transactions_id')->constrained('vouchers');
+                if (Schema::hasColumn('voucher_usages', 'transactions_id')) {
+                    $table->foreignId('vouchers_id')->after('transactions_id')->constrained('vouchers');
+                } else {
+                    $table->foreignId('vouchers_id')->after('id')->constrained('vouchers');
+                }
             });
         }
     }

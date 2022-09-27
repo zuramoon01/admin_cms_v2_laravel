@@ -33,6 +33,11 @@ return new class extends Migration
                 $table->foreignId('transaction_id')->after('id')->constrained('transactions');
             });
         }
+        if (Schema::hasTable('voucher_usages') && !Schema::hasColumn('voucher_usages', 'transactions_id')) {
+            Schema::table('voucher_usages', function (Blueprint $table) {
+                $table->foreignId('transactions_id')->constrained('transaction');
+            });
+        }
     }
 
     /**
