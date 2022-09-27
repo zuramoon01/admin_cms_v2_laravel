@@ -58,16 +58,18 @@ class TransactionController extends Controller
             'payment_method',
             'status',
         ]);
-        $productValidated = $request->safe()->only([
+        $transactionValidated['transaction_id'] = $this->createTransactionId();
+        $transaction = Transaction::create($transactionValidated);
+
+        $transactionDetailValidated = $request->safe()->only([
             'product_id',
             'product_qty'
         ]);
+        TransactionDetailController::store($transactionDetailValidated, $transaction);
+
         $voucherValidated = $request->safe()->only(['voucher']);
+        VoucherUsageController::store($voucherValidated, $transaction);
 
-        $transactionValidated['transaction_id'] = $this->createTransactionId();
-
-        $transaction = Transaction::create($transactionValidated);
-
-        dd($transaction->id);
+        return to_route('transaction.index.view');
     }
 }
