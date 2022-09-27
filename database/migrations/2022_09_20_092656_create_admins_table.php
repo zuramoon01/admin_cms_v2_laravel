@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            if (Schema::hasTable('roles')) {
+            if (Schema::hasTable('roles') && !(Schema::hasColumn('admins', 'role_id'))) {
                 $table->foreignId('role_id')->constrained('roles');
             }
             $table->string('username', 45)->unique();
