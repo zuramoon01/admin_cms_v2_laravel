@@ -37,18 +37,11 @@
                 <td>{{ $transaction->additional_request }}</td>
                 <td>{{ $transaction->payment_method }}</td>
                 <td>
-                    @if ($transaction->status)
+                    @if ($transaction->status === 2)
                         <span class="badge badge-success">active</span>
-                        @if ($transaction->new_product)
-                            <span class="badge badge-warning text-white">new product</span>
-                        @endif
-                        @if ($transaction->best_seller)
-                            <span class="badge badge-primary text-white">best seller</span>
-                        @endif
-                        @if ($transaction->featured)
-                            <span class="badge badge-dark">featured</span>
-                        @endif
-                    @else
+                    @elseif($transaction->status === 1)
+                        <span class="badge badge-danger">non active</span>
+                    @elseif($transaction->status === 0)
                         <span class="badge badge-danger">non active</span>
                     @endif
                 </td>
@@ -72,5 +65,10 @@
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
         <script src="{{ asset('/js/all/index.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                window.localStorage.clear()
+            })
+        </script>
     </x-slot:js>
 </x-dashboard>
