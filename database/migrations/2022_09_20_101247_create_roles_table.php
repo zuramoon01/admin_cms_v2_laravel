@@ -20,13 +20,13 @@ return new class extends Migration
 
         if (Schema::hasTable('admins') && !(Schema::hasColumn('admins', 'role_id'))) {
             Schema::table('admins', function (Blueprint $table) {
-                $table->foreignId('role_id')->after('id')->constrained('roles');
+                $table->foreignId('roles_id')->after('id')->constrained('roles');
             });
         }
 
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'role_id'))) {
             Schema::table('authorizations', function (Blueprint $table) {
-                $table->foreignId('role_id')->after('id')->constrained('roles');
+                $table->foreignId('roles_id')->after('id')->constrained('roles');
             });
         }
     }

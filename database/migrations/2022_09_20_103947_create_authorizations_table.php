@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('authorizations', function (Blueprint $table) {
             $table->id();
             if (Schema::hasTable('roles') && !(Schema::hasColumn('authorizations', 'role_id'))) {
-                $table->foreignId('role_id')->constrained('roles');
+                $table->foreignId('roles_id')->constrained('roles');
             }
             if (Schema::hasTable('authorization_types') && !(Schema::hasColumn('authorizations', 'authorization_type_id'))) {
-                $table->foreignId('authorization_type_id')->constrained('authorization_types');
+                $table->foreignId('authorization_types_id')->constrained('authorization_types');
             }
             if (Schema::hasTable('menus') && !(Schema::hasColumn('authorizations', 'menu_id'))) {
-                $table->foreignId('menu_id')->constrained('menus');
+                $table->foreignId('menus_id')->constrained('menus');
             }
             $table->boolean('has_access')->default(false);
         });

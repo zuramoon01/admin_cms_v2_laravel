@@ -22,9 +22,9 @@ return new class extends Migration
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'authorization_type_id'))) {
             Schema::table('authorizations', function (Blueprint $table) {
                 if (Schema::hasColumn('authorizations', 'role_id')) {
-                    $table->foreignId('authorization_type_id')->after('role_id')->constrained('authorization_types');
+                    $table->foreignId('authorization_types_id')->after('role_id')->constrained('authorization_types');
                 } else {
-                    $table->foreignId('authorization_type_id')->after('id')->constrained('authorization_types');
+                    $table->foreignId('authorization_types_id')->after('id')->constrained('authorization_types');
                 }
             });
         }

@@ -24,11 +24,11 @@ return new class extends Migration
         if (Schema::hasTable('authorizations') && !(Schema::hasColumn('authorizations', 'menu_id'))) {
             Schema::table('authorizations', function (Blueprint $table) {
                 if (Schema::hasColumn('authorizations', 'authorization_type_id')) {
-                    $table->foreignId('menu_id')->after('authorization_type_id')->constrained('menus');
+                    $table->foreignId('menus_id')->after('authorization_type_id')->constrained('menus');
                 } else if (Schema::hasColumn('authorizations', 'role_id')) {
-                    $table->foreignId('menu_id')->after('role_id')->constrained('menus');
+                    $table->foreignId('menus_id')->after('role_id')->constrained('menus');
                 } else {
-                    $table->foreignId('menu_id')->after('id')->constrained('menus');
+                    $table->foreignId('menus_id')->after('id')->constrained('menus');
                 }
             });
         }
