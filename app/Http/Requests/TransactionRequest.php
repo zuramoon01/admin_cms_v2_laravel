@@ -33,8 +33,8 @@ class TransactionRequest extends FormRequest
             'additional_request' => 'nullable',
             'payment_method' => 'required|max:200',
             'status' => 'required|numeric|min:0|max:2',
-            'product_id' => 'required',
-            'product_qty' => 'required',
+            'product_id' => 'nullable',
+            'product_qty' => 'nullable',
             "voucher" => 'required|numeric',
         ];
     }
