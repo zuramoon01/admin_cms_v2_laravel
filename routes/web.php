@@ -82,5 +82,6 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::post('/', 'store')->name('store.add');
             Route::get('/{transaction:id}', 'edit')->name('edit.edit');
             Route::put('/{transaction:id}', 'update')->name('update.edit');
+            Route::delete('/{transaction:id}', 'destroy')->name('destroy.delete');
         });
 });

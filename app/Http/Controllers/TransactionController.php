@@ -58,6 +58,13 @@ class TransactionController extends Controller
         return to_route('transaction.index.view');
     }
 
+    public function destroy(Transaction $transaction)
+    {
+        Transaction::destroy($transaction->id);
+
+        return response()->json('success');
+    }
+
     private function changeToThreeDigit($num)
     {
         $len = strlen(strval($num));
