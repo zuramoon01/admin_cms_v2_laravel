@@ -47,8 +47,12 @@ class ProductCategoryController extends Controller
 
     public function destroy(ProductCategory $productCategory)
     {
-        ProductCategory::destroy($productCategory->id);
+        try {
+            ProductCategory::destroy($productCategory->id);
 
-        return response()->json('success');
+            return response()->json('success');
+        } catch (\Throwable $th) {
+            return response()->json("Can't delete product category because it's in use in category!");
+        }
     }
 }

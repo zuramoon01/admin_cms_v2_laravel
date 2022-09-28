@@ -56,9 +56,13 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        Product::destroy($product->id);
+        try {
+            Product::destroy($product->id);
 
-        return response()->json('success');
+            return response()->json('success');
+        } catch (\Throwable $th) {
+            return response()->json("Can't delete product because it's in use in transaction detail!");
+        }
     }
 
     public function getProduct(Product $product)

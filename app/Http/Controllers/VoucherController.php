@@ -55,9 +55,13 @@ class VoucherController extends Controller
 
     public function destroy(Voucher $voucher)
     {
-        Voucher::destroy($voucher->id);
+        try {
+            Voucher::destroy($voucher->id);
 
-        return response()->json('success');
+            return response()->json('success');
+        } catch (\Throwable $th) {
+            return response()->json("Can't delete transaction because it's in use in voucher usage!");
+        }
     }
 
     public function getVoucher(Voucher $voucher)

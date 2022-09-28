@@ -60,9 +60,13 @@ class TransactionController extends Controller
 
     public function destroy(Transaction $transaction)
     {
-        Transaction::destroy($transaction->id);
+        try {
+            Transaction::destroy($transaction->id);
 
-        return response()->json('success');
+            return response()->json('success');
+        } catch (\Throwable $th) {
+            return response()->json("Can't delete transaction because it's in use in transaction detail or voucher usage!");
+        }
     }
 
     private function changeToThreeDigit($num)
