@@ -35,7 +35,7 @@ class TransactionRequest extends FormRequest
             'status' => 'required|numeric|min:0|max:2',
             'product_id' => 'nullable',
             'product_qty' => 'nullable',
-            "voucher" => 'required|numeric',
+            "voucher" => 'numeric|nullable',
         ];
     }
 }
