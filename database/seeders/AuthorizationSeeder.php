@@ -19,18 +19,22 @@ class AuthorizationSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::where('name', 'admin')->first()->id;
+        $roles = Role::all();
         $authorizationTypes = AuthorizationType::all();
         $menus = Menu::all();
 
-        foreach ($menus as $menu) {
-            foreach ($authorizationTypes as $type) {
-                Authorization::create([
-                    'role_id' => $role,
-                    'authorization_type_id' => $type->id,
-                    'menu_id' => $menu->id,
-                    'has_access' => true,
-                ]);
+        foreach ($roles as $role) {
+            foreach ($menus as $menu) {
+                foreach ($authorizationTypes as $type) {
+                    $hasAccess = $role->name === 'admin' || ($role->name === 'tester' && $menu->name === 'authorization') ? true : false;
+
+                    Authorization::create([
+                        'roles_id' => $role->id,
+                        'authorization_types_id' => $type->id,
+                        'menus_id' => $menu->id,
+                        'has_access' => $hasAccess,
+                    ]);
+                }
             }
         }
     }

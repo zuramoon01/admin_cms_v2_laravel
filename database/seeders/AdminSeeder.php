@@ -21,9 +21,9 @@ class AdminSeeder extends Seeder
 
         foreach ($roles as $role) {
             Admin::create([
-                'role_id' => $role->id,
+                'roles_id' => $role->id,
                 'username' => $role->name,
-                'password' => bcrypt($role->name),
+                'password' => bcrypt(123),
             ]);
         }
     }
