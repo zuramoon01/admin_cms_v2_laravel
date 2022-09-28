@@ -23,9 +23,15 @@
                                     <form class="user" action="{{ url('/login') }}" method="post">
                                         @csrf
 
+                                        @if ($errors->hasAny(['username', 'password']))
+                                            <div class="alert alert-danger" role="alert">
+                                                Username atau Password yang anda masukkan salah!
+                                            </div>
+                                        @endif
+
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="username"
-                                                name="username" placeholder="Username">
+                                                name="username" placeholder="Username" value="{{ old('username') }}">
                                         </div>
 
                                         <div class="form-group">
