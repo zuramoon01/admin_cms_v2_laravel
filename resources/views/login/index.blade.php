@@ -32,13 +32,13 @@
                                         @endif
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="username"
-                                                name="username" placeholder="Username" value="{{ old('username') }}">
+                                            {{-- prettier-ignore --}}
+                                            <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username" value="{{ old('username') }}">
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="password"
-                                                name="password" placeholder="Password">
+                                            {{-- prettier-ignore --}}
+                                            <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
