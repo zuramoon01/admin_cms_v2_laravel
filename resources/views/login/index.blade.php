@@ -24,9 +24,11 @@
                                         @csrf
 
                                         @if ($errors->hasAny(['username', 'password']))
+                                            <!-- Error Message -->
                                             <div class="alert alert-danger" role="alert">
                                                 Username atau Password yang anda masukkan salah!
                                             </div>
+                                            <!-- End of Error Message -->
                                         @endif
 
                                         <div class="form-group">
@@ -53,7 +55,6 @@
     </div>
 
     <x-partials._js />
-
 </body>
 
 </html>
