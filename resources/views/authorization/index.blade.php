@@ -31,7 +31,6 @@
 
     <x-slot:js>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="{{ asset('/js/authorization/index.js') }}"></script>
     </x-slot:js>
