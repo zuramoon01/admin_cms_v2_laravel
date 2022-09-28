@@ -126,7 +126,7 @@ const getLocalProducts = () => {
         ? JSON.parse(window.localStorage.getItem("products"))
         : [];
 
-    if (products.length === 0) {
+    if (products.length > 0) {
         products.map((product) => {
             const { id, name, qty, subTotal, subTotalPurchase } = product;
 
