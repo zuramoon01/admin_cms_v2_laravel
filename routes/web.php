@@ -6,8 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +20,10 @@ use App\Http\Controllers\VoucherController;
 |
 */
 
-
+// Dashboard Route
 Route::view('/', 'index')->middleware('auth')->name('dashboard');
 
+// Auth Routes for Login and Logout
 Route::controller(AuthController::class)->group(function () {
     Route::middleware('guest')
         ->prefix('/login')->group(function () {
@@ -34,6 +35,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['auth', 'route.authorization'])->group(function () {
+    // Authorization Routes
     Route::controller(AuthorizationController::class)
         ->prefix('/authorizations')
         ->name('authorization.')->group(function () {
@@ -41,6 +43,7 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::post('/save', 'save')->name('save.edit');
         });
 
+    // Product Category Routes
     Route::controller(ProductCategoryController::class)
         ->prefix('/product-categories')
         ->name('product-category.')->group(function () {
@@ -52,6 +55,7 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::delete('/{product_category:id}', 'destroy')->name('destroy.delete');
         });
 
+    // Product Routes
     Route::controller(ProductController::class)
         ->prefix('/products')
         ->name('product.')->group(function () {
@@ -63,6 +67,7 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::delete('/{product:id}', 'destroy')->name('destroy.delete');
         });
 
+    // Voucher Routes
     Route::controller(VoucherController::class)
         ->prefix('/vouchers')
         ->name('voucher.')->group(function () {
@@ -74,6 +79,7 @@ Route::middleware(['auth', 'route.authorization'])->group(function () {
             Route::delete('/{voucher:id}', 'destroy')->name('destroy.delete');
         });
 
+    // Transaction Routes
     Route::controller(TransactionController::class)
         ->prefix('/transactions')
         ->name('transaction.')->group(function () {
