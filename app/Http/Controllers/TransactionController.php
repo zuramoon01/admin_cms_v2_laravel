@@ -9,6 +9,52 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    public function index()
+    {
+        return view('transaction.index');
+    }
+
+    public function create()
+    {
+        return view('transaction.form');
+    }
+
+    public function store(TransactionRequest $request)
+    {
+        $transactionValidated = $this->getTransactionRequest($request);
+        $transactionValidated['transaction_id'] = $this->createTransactionId();
+        $transaction = Transaction::create($transactionValidated);
+
+        $transactionDetailValidated = $this->getTransactionDetailRequest($request);
+        TransactionDetailController::store($transactionDetailValidated, $transaction);
+
+        $voucherValidated = $this->getVoucherRequest($request);
+        VoucherUsageController::store($voucherValidated, $transaction);
+
+        return to_route('transaction.index.view');
+    }
+
+    public function edit(Transaction $transaction)
+    {
+        $voucherUsage = VoucherUsage::where('transactions_id', $transaction->id)->first();
+
+        return view('transaction.form', [
+            'transaction' => $transaction,
+            'voucherUsage' => $voucherUsage
+        ]);
+    }
+
+    public function update(Transaction $transaction, TransactionRequest $request)
+    {
+        $transactionValidated = $this->getTransactionRequest($request);
+        Transaction::where('id', $transaction->id)->update($transactionValidated);
+
+        $transactionDetailValidated = $this->getTransactionDetailRequest($request);
+        TransactionDetailController::update($transactionDetailValidated, $transaction);
+
+        return to_route('transaction.index.view');
+    }
+
     private function changeToThreeDigit($num)
     {
         $len = strlen(strval($num));
@@ -36,19 +82,9 @@ class TransactionController extends Controller
         return $transactionId;
     }
 
-    public function index()
+    private function getTransactionRequest($request)
     {
-        return view('transaction.index');
-    }
-
-    public function create()
-    {
-        return view('transaction.form');
-    }
-
-    public function store(TransactionRequest $request)
-    {
-        $transactionValidated = $request->safe()->only([
+        return $request->safe()->only([
             'customer_name',
             'customer_email',
             'customer_phone',
@@ -59,28 +95,20 @@ class TransactionController extends Controller
             'payment_method',
             'status',
         ]);
-        $transactionValidated['transaction_id'] = $this->createTransactionId();
-        $transaction = Transaction::create($transactionValidated);
+    }
 
-        $transactionDetailValidated = $request->safe()->only([
+    private function getTransactionDetailRequest($request)
+    {
+        return $request->safe()->only([
             'product_id',
             'product_qty'
         ]);
-        TransactionDetailController::store($transactionDetailValidated, $transaction);
-
-        $voucherValidated = $request->safe()->only(['voucher']);
-        VoucherUsageController::store($voucherValidated, $transaction);
-
-        return to_route('transaction.index.view');
     }
 
-    public function edit(Transaction $transaction)
+    private function getVoucherRequest($request)
     {
-        $voucherUsage = VoucherUsage::where('transactions_id', $transaction->id)->first();
-
-        return view('transaction.form', [
-            'transaction' => $transaction,
-            'voucherUsage' => $voucherUsage
+        return $request->safe()->only([
+            'voucher',
         ]);
     }
 }
