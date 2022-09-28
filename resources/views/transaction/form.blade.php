@@ -57,7 +57,7 @@ if ($routeType === 'add') {
 
     <x-partials._form :action="url($url)">
         <x-slot:method>
-            @isset($product)
+            @isset($transaction)
                 @method('put')
             @endisset
         </x-slot:method>
@@ -84,7 +84,9 @@ if ($routeType === 'add') {
                     }
                 @endphp
 
-                <input type="hidden" id="transaction-id" name="transaction-id" value="{{ $transaction->id }}">
+                @isset($transaction)
+                    <input type="hidden" id="transaction-id" name="transaction-id" value="{{ $transaction->id }}">
+                @endisset
 
                 @if ($type === 'text')
                     <x-partials._input-text :name="$name" :label="$label" :value="$value" />
@@ -132,7 +134,7 @@ if ($routeType === 'add') {
                 <x-partials._input-select name="voucher" label="Voucher" routeType="add" isLabel=false>
                     @foreach ($vouchers->where('status', 1) as $voucher)
                         <option value="{{ $voucher->id }}"
-                            @if (old('voucher')) @selected($voucher->id == old('voucher')) @else
+                            @if (old('voucher')) @selected($voucher->id == old('voucher')) @elseif(isset($voucherUsage))
                             @selected($voucher->id === $voucherUsage->vouchers_id) @endif>
                             {{ Str::ucfirst($voucher->code) }}</option>
                     @endforeach
