@@ -17,12 +17,14 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::where('name', 'admin')->first();
+        $roles = Role::all();
 
-        Admin::create([
-            'role_id' => $role->id,
-            'username' => 'admin',
-            'password' => bcrypt('123'),
-        ]);
+        foreach ($roles as $role) {
+            Admin::create([
+                'role_id' => $role->id,
+                'username' => $role->name,
+                'password' => bcrypt($role->name),
+            ]);
+        }
     }
 }
