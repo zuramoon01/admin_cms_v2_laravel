@@ -58,6 +58,13 @@ class TransactionDetailController extends Controller
         }
     }
 
+    public function getTransactionDetailByTransaction($id)
+    {
+        $transactionDetails = TransactionDetail::where('transactions_id', $id)->get();
+
+        return response()->json($transactionDetails);
+    }
+
     static private function getStoreRequestData($transaction, $product, $qty)
     {
         return [

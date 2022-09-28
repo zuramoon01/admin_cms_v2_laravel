@@ -60,4 +60,9 @@ class ProductController extends Controller
 
         return response()->json('success');
     }
+
+    public function getProduct(Product $product)
+    {
+        return response()->json($product);
+    }
 }

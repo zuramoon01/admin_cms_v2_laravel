@@ -59,4 +59,9 @@ class VoucherController extends Controller
 
         return response()->json('success');
     }
+
+    public function getVoucher(Voucher $voucher)
+    {
+        return response()->json($voucher);
+    }
 }

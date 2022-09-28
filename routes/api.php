@@ -1,8 +1,10 @@
 <?php
 
-use App\Models\Product;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionDetailController;
+use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\VoucherUsageController;
 use App\Models\TransactionDetail;
-use App\Models\Voucher;
 use App\Models\VoucherUsage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,22 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/product/{product:id}', function (Product $product) {
-    return response()->json($product);
-});
-
-Route::get('/voucher/{voucher:id}', function (Voucher $voucher) {
-    return response()->json($voucher);
-});
-
-Route::get('/transaction-detail/transaction/{id}', function ($id) {
-    $transactionDetails = TransactionDetail::where('transactions_id', $id)->get();
-
-    return response()->json($transactionDetails);
-});
-
-Route::get('/voucher-usage/transaction/{id}', function ($id) {
-    $voucherUsage = VoucherUsage::where('transactions_id', $id)->first();
-
-    return response()->json($voucherUsage);
-});
+Route::get('/product/{product:id}', [ProductController::class, 'getProduct']);
+Route::get('/voucher/{voucher:id}', [VoucherController::class, 'getVoucher']);
+Route::get('/transaction-detail/transaction/{id}', [TransactionDetailController::class, 'getTransactionDetailByTransaction']);
+Route::get('/voucher-usage/transaction/{id}', [VoucherUsageController::class, 'getVoucherUsageByTransaction']);

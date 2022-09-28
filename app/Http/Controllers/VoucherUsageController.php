@@ -35,4 +35,11 @@ class VoucherUsageController extends Controller
             VoucherUsage::destroy($voucherUsage->id);
         }
     }
+
+    public function getVoucherUsageByTransaction($id)
+    {
+        $voucherUsage = VoucherUsage::where('transactions_id', $id)->first();
+
+        return response()->json($voucherUsage);
+    }
 }
