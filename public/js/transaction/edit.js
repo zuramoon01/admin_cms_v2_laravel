@@ -25,7 +25,6 @@ let totalPrice = 0;
 let totalPurchasePrice = 0;
 
 let products = [];
-let voucher = {};
 
 const getTotal = () => {
     const type = voucherText.innerText.split(" ")[2];
@@ -151,16 +150,14 @@ const getLocalProducts = () => {
 
             totalPrice += parseFloat(subTotal);
             totalPurchasePrice += parseFloat(subTotalPurchase);
+
+            getTotal();
         });
     } else {
         getDatabaseProducts();
     }
 };
 getLocalProducts();
-
-const setVoucher = () => {
-    window.localStorage.setItem("voucher", JSON.stringify(voucher));
-};
 
 const getDatabaseVoucher = () => {
     axios
@@ -169,38 +166,18 @@ const getDatabaseVoucher = () => {
             axios
                 .get(`/api/voucher/${data.id}`)
                 .then(({ data }) => {
-                    voucher = data;
-
                     voucherText.innerText =
                         voucher.type === 1
                             ? "Voucher | Flat Discount"
                             : "Voucher | Percent Discount";
                     voucherValue.innerText = voucher.disc_value;
 
-                    setVoucher();
                     getTotal();
                 })
                 .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
 };
-
-const getLocalVoucher = () => {
-    voucher = JSON.parse(window.localStorage.getItem("voucher"))
-        ? JSON.parse(window.localStorage.getItem("voucher"))
-        : {};
-
-    if (Object.keys(voucher).length > 0) {
-        voucherText.innerText =
-            voucher.type === 1
-                ? "Voucher | Flat Discount"
-                : "Voucher | Percent Discount";
-        voucherValue.innerText = voucher.disc_value;
-    } else {
-        getDatabaseVoucher();
-    }
-};
-getLocalVoucher();
 
 addProductBtn.addEventListener("click", () => {
     selectedProduct = selectProduct.selectedOptions[0];
@@ -249,8 +226,8 @@ addProductBtn.addEventListener("click", () => {
                     subTotalPurchase:
                         data.purchase_price * parseInt(qtyProduct.value),
                 });
-                setProducts();
 
+                setProducts();
                 getTotal();
             })
             .catch((err) => console.log(err));
@@ -281,13 +258,12 @@ const deleteProduct = (e) => {
             singleProduct.remove();
 
             setProducts();
-
             getTotal();
         })
         .catch((err) => console.log(err));
 };
 
-selectVoucher.addEventListener("change", () => {
+const loadVoucher = () => {
     selectedVoucher = selectVoucher.selectedOptions[0].value;
 
     if (selectedVoucher !== "")
@@ -300,14 +276,16 @@ selectVoucher.addEventListener("change", () => {
                         : "Voucher | Percent Discount";
                 voucherValue.innerText = data.disc_value;
 
-                voucher = data;
-                setVoucher();
-
                 getTotal();
             })
             .catch((err) => console.log(err));
     else {
+        console.log("ok");
         voucherText.innerText = "Voucher";
         voucherValue.innerText = "-";
+
+        getTotal();
     }
-});
+};
+loadVoucher();
+selectVoucher.addEventListener("change", () => loadVoucher());
