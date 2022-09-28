@@ -52,6 +52,9 @@ class TransactionController extends Controller
         $transactionDetailValidated = $this->getTransactionDetailRequest($request);
         TransactionDetailController::update($transactionDetailValidated, $transaction);
 
+        $voucherValidated = $this->getVoucherRequest($request);
+        VoucherUsageController::update($voucherValidated, $transaction);
+
         return to_route('transaction.index.view');
     }
 

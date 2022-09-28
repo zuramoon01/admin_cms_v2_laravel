@@ -18,4 +18,21 @@ class VoucherUsageController extends Controller
             'discounted_value' => $voucher->disc_value,
         ]);
     }
+
+    static public function update($validated, $transaction)
+    {
+        if (isset($validated['voucher'])) {
+            dd('ok');
+            $voucher = Voucher::where('id', $validated['voucher'])->first();
+
+            VoucherUsage::where('transactions_id', $transaction->id)->update([
+                'vouchers_id' => $voucher->id,
+                'discounted_value' => $voucher->disc_value,
+            ]);
+        } else {
+            $voucherUsage = VoucherUsage::where('transactions_id', $transaction->id)->first();
+
+            VoucherUsage::destroy($voucherUsage->id);
+        }
+    }
 }
