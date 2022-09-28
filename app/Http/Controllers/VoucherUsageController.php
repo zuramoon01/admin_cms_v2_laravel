@@ -36,9 +36,9 @@ class VoucherUsageController extends Controller
         }
     }
 
-    public function getVoucherUsageByTransaction($id)
+    public function getVoucherUsageByTransaction($transactionid)
     {
-        $voucherUsage = VoucherUsage::where('transactions_id', $id)->first();
+        $voucherUsage = VoucherUsage::where('transactions_id', $transactionid)->first();
 
         return response()->json($voucherUsage);
     }

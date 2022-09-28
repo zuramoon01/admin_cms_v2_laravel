@@ -31,10 +31,11 @@ class RouteAuthorization
             ->orWhere('slug', $routeMenu)->first();
         $authorizationType = AuthorizationType::where('name', $routeType)->first();
 
-        $authorization = Authorization::where('role_id', $role->id)
-            ->where('menu_id', $menu->id)
-            ->where('authorization_type_id', $authorizationType->id)->first();
+        $authorization = Authorization::where('roles_id', $role->id)
+            ->where('menus_id', $menu->id)
+            ->where('authorization_types_id', $authorizationType->id)->first();
 
-        return $authorization->has_access ? $next($request) : to_route('dashboard');
+        return $authorization->has_access ? $next($request)
+            : to_route('dashboard', ['authorization_message' => "Your role as $role->name doesn't have access to $routeType " . implode((' '), explode("-", $routeMenu))]);
     }
 }

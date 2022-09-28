@@ -1,5 +1,4 @@
 <x-dashboard :menus="$menus">
-
     <x-table>
         <x-slot:heading>{{ $heading }} </x-slot:heading>
 
@@ -10,6 +9,8 @@
                         <option value="{{ $role->id }}">{{ Str::ucfirst($role->name) }}</option>
                     @endforeach
                 </select>
+
+                {{-- Save Button to Save Authorization --}}
                 <button type="button" id="save" class="btn btn-warning ml-3">Save</button>
             </div>
         </x-slot:title>
@@ -26,24 +27,11 @@
                 <th class="text-center">{{ Str::ucfirst($type->name) }}</th>
             @endforeach
         </x-slot:head>
-
-        @foreach ($menus as $menu)
-            <tr class='single-menu'>
-                <td>{{ Str::ucfirst($menu->name) }}</td>
-                @foreach ($authorizationTypes as $type)
-                    <td class="text-center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $type->id }}"
-                                id="defaultCheck1" @if ($authorizations->where('menu_id', $menu->id)->where('authorization_type_id', $type->id)->first()->has_access) checked @endif>
-                        </div>
-                    </td>
-                @endforeach
-            </tr>
-        @endforeach
     </x-table>
 
     <x-slot:js>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="{{ asset('/js/authorization/index.js') }}"></script>
     </x-slot:js>

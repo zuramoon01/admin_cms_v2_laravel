@@ -58,9 +58,9 @@ class TransactionDetailController extends Controller
         }
     }
 
-    public function getTransactionDetailByTransaction($id)
+    public function getTransactionDetailByTransaction($transactionid)
     {
-        $transactionDetails = TransactionDetail::where('transactions_id', $id)->get();
+        $transactionDetails = TransactionDetail::where('transactions_id', $transactionid)->get();
 
         return response()->json($transactionDetails);
     }

@@ -15,9 +15,7 @@ class AuthorizationController extends Controller
 {
     public function index()
     {
-        return view('authorization.index', [
-            'authorizations' => Authorization::where('role_id', 1)->get(),
-        ]);
+        return view('authorization.index');
     }
 
     public function save(AuthorizationRequest $request)
@@ -30,9 +28,9 @@ class AuthorizationController extends Controller
 
             for ($j = 0; $j < count($data['types'][$i]); $j++) {
                 if ($data['types'][$i][$j] === 0) {
-                    $authorization = Authorization::where('role_id', $role->id)
-                        ->where('menu_id', $menu->id)
-                        ->where('authorization_type_id', ($j + 1))
+                    $authorization = Authorization::where('roles_id', $role->id)
+                        ->where('menus_id', $menu->id)
+                        ->where('authorization_types_id', ($j + 1))
                         ->update(
                             [
                                 'has_access' => false,
@@ -41,9 +39,9 @@ class AuthorizationController extends Controller
                 } else {
                     $authorizationType = AuthorizationType::where("id", $data['types'][$i][$j])->first();
 
-                    $authorization = Authorization::where('role_id', $role->id)
-                        ->where('menu_id', $menu->id)
-                        ->where('authorization_type_id', $authorizationType->id)
+                    $authorization = Authorization::where('roles_id', $role->id)
+                        ->where('menus_id', $menu->id)
+                        ->where('authorization_types_id', $authorizationType->id)
                         ->update(
                             [
                                 'has_access' => true,
@@ -54,5 +52,12 @@ class AuthorizationController extends Controller
         }
 
         return response()->json('success');
+    }
+
+    public function getAuthorizationByRole($roleId)
+    {
+        $authorizations = Authorization::where('roles_id', $roleId)->get();
+
+        return response()->json($authorizations);
     }
 }
