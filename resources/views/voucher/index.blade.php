@@ -44,11 +44,12 @@
                 <td>
                     @if ($voucher->status)
                         <span class="badge badge-success">active</span>
+
+                        @if (date('Y-m-d') > $voucher->end_date)
+                            <span class="badge badge-secondary">expired</span>
+                        @endif
                     @else
                         <span class="badge badge-danger">non active</span>
-                    @endif
-                    @if (date('Y-m-d') > $voucher->end_date)
-                        <span class="badge badge-secondary">expired</span>
                     @endif
                 </td>
                 <td class="text-center">
@@ -57,6 +58,7 @@
                             class="btn btn-warning btn-circle btn-sm mr-1">
                             <i class="fas fa-pen"></i>
                         </a>
+
                         <button data-url="{{ url(request()->path() . "/$voucher->id") }}"
                             class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteItem(this)">
                             <i class="fas fa-trash"></i>
