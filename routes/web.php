@@ -31,10 +31,10 @@ Route::controller(AuthController::class)->group(function () {
             Route::post('/', 'loginUser');
         });
 
-    Route::get('/logout', 'logoutUser')->middleware('auth');
+    Route::get('/logout', 'logoutUser')->middleware('auth:sanctum');
 });
 
-Route::middleware(['auth', 'route.authorization'])->group(function () {
+Route::middleware(['auth:sanctum', 'route.authorization'])->group(function () {
     // Authorization Routes
     Route::controller(AuthorizationController::class)
         ->prefix('/authorizations')
