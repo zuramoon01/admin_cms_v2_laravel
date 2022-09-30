@@ -38,11 +38,11 @@
                 <td>{{ $transaction->payment_method }}</td>
                 <td>
                     @if ($transaction->status === 2)
-                        <span class="badge badge-success">active</span>
+                        <span class="badge badge-success">Done / Paid</span>
                     @elseif($transaction->status === 1)
-                        <span class="badge badge-danger">non active</span>
+                        <span class="badge badge-warning">Pending</span>
                     @elseif($transaction->status === 0)
-                        <span class="badge badge-danger">non active</span>
+                        <span class="badge badge-danger">Cancelled</span>
                     @endif
                 </td>
                 <td class="text-center">
