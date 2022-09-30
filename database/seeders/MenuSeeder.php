@@ -48,9 +48,7 @@ class MenuSeeder extends Seeder
 
         foreach ($menus as $menu) {
             Menu::create([
-                'name' => $menu['name'],
-                'icon' => $menu['icon'],
-                'route' => $menu['route'],
+                ...$menu,
                 'slug' => Str::slug($menu['name'])
             ]);
         }

@@ -19,15 +19,16 @@ class ProductCategorySeeder extends Seeder
         $productCategories = [
             [
                 'category' => 'Elektronik',
-                'description' => 'Alat - alat elektronik',
+                'description' => 'Produk kategori elektronik',
+            ],
+            [
+                'category' => 'Buah - Buahan',
+                'description' => 'Produk kategori buah - buahan',
             ],
         ];
 
         foreach ($productCategories as $productCategory) {
-            ProductCategory::create([
-                'category' => $productCategory['category'],
-                'description' => $productCategory['description'],
-            ]);
+            ProductCategory::create($productCategory);
         }
     }
 }

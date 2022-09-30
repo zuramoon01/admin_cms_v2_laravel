@@ -21,29 +21,22 @@ class VoucherSeeder extends Seeder
                 'code' => 'V01',
                 'type' => 1,
                 'disc_value' => 100000,
-                'start_date' => '2022-09-26',
-                'end_date' => '2022-09-28',
+                'start_date' => date('Y-m-d'),
+                'end_date' => date('Y-m-d', strtotime('+2 day')),
                 'status' => 1,
             ],
             [
                 'code' => 'V02',
                 'type' => 2,
                 'disc_value' => 5,
-                'start_date' => '2022-09-26',
-                'end_date' => '2022-09-28',
+                'start_date' => date('Y-m-d'),
+                'end_date' => date('Y-m-d', strtotime('+2 day')),
                 'status' => 1,
             ],
         ];
 
         foreach ($vouchers as $voucher) {
-            Voucher::create([
-                'code' => $voucher['code'],
-                'type' => $voucher['type'],
-                'disc_value' => $voucher['disc_value'],
-                'start_date' => $voucher['start_date'],
-                'end_date' => $voucher['end_date'],
-                'status' => $voucher['status'],
-            ]);
+            Voucher::create($voucher);
         }
     }
 }
