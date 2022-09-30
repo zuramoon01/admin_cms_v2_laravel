@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthRequest;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -17,18 +20,26 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
 
+        // $admin = Admin::where('username', $credentials['username'])->first();
+
+        // if (!$admin || !Hash::check($request->password, $admin->password)) {
+        //     throw ValidationException::withMessages([
+        //         'username' => ['The provided credentials are incorrect.'],
+        //     ]);
+        // }
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $request->user()->createToken('user_token')->plainTextToken;
 
             return to_route('dashboard');
         }
-
-        return to_route('login');
     }
 
     public function logoutUser(Request $request)
     {
-        Auth::logout();
+        $user = Admin::where('username', auth()->user()->username)->first();
+        $user->tokens()->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
