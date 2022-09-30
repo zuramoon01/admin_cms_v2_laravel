@@ -81,19 +81,19 @@ const getDatabaseProducts = () => {
                         const { id, name } = data;
 
                         listProduct.innerHTML += `
-                                                <li class="list-group-item d-flex p-2" data-id="${id}">
-                                                    <input type="hidden" name="product_id[]" value="${id}">
-                                                    <input type="hidden" name="product_qty[]" value="${qty}">
-                                                    <p class="col-md-6 m-0 p-0 text-center">${name}</p>
-                                                    <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
-                                                    <p class="col-md-3 m-0 p-0 text-center">${price_purchase_total}</p>
-                                                    <p class="col-md-2 m-0 p-0 text-center">
-                                                        <button type="button" class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteProduct(this)">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </p>
-                                                </li>
-                                            `;
+                            <li class="list-group-item d-flex p-2" data-id="${id}">
+                                <input type="hidden" name="product_id[]" value="${id}">
+                                <input type="hidden" name="product_qty[]" value="${qty}">
+                                <p class="col-md-6 m-0 p-0 text-center">${name}</p>
+                                <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
+                                <p class="col-md-3 m-0 p-0 text-center">${price_purchase_total}</p>
+                                <p class="col-md-2 m-0 p-0 text-center">
+                                    <button type="button" class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteProduct(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </p>
+                            </li>
+                        `;
 
                         [...selectProduct.options].map((product) => {
                             if (product.value == id) product.remove();
@@ -130,19 +130,19 @@ const getLocalProducts = () => {
             const { id, name, qty, subTotal, subTotalPurchase } = product;
 
             listProduct.innerHTML += `
-                                <li class="list-group-item d-flex p-2" data-id="${id}">
-                                    <input type="hidden" name="product_id[]" value="${id}">
-                                    <input type="hidden" name="product_qty[]" value="${qty}">
-                                    <p class="col-md-6 m-0 p-0 text-center">${name}</p>
-                                    <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
-                                    <p class="col-md-3 m-0 p-0 text-center">${subTotalPurchase}</p>
-                                    <p class="col-md-2 m-0 p-0 text-center">
-                                        <button type="button" class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteProduct(this)">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </p>
-                                </li>
-                            `;
+                <li class="list-group-item d-flex p-2" data-id="${id}">
+                    <input type="hidden" name="product_id[]" value="${id}">
+                    <input type="hidden" name="product_qty[]" value="${qty}">
+                    <p class="col-md-6 m-0 p-0 text-center">${name}</p>
+                    <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
+                    <p class="col-md-3 m-0 p-0 text-center">${subTotalPurchase}</p>
+                    <p class="col-md-2 m-0 p-0 text-center">
+                        <button type="button" class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteProduct(this)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </p>
+                </li>
+            `;
 
             [...selectProduct.options].map((product) => {
                 if (product.value == id) product.remove();
@@ -249,11 +249,13 @@ const deleteProduct = (e) => {
                 return product.id != productId;
             });
 
-            selectProduct.innerHTML += `
+            if (data.status === 1) {
+                selectProduct.innerHTML += `
                 <option value="${data.id}">
                     ${data.name.charAt(0).toUpperCase() + data.name.slice(1)}
                 </option>
             `;
+            }
 
             singleProduct.remove();
 

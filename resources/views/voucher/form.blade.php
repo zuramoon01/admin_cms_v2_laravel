@@ -109,4 +109,7 @@ if ($routeType === 'add') {
         <button type="submit" class="btn btn-{{ $button['type'] }} btn-block mx-2">{{ $button['name'] }}</button>
     </x-partials._form>
 
+    <x-slot:js>
+        <script src="{{ asset('/js/voucher/index.js') }}"></script>
+    </x-slot:js>
 </x-dashboard>

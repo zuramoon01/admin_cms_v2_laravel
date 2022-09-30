@@ -66,8 +66,15 @@ const setProducts = () => {
 const getTransaction = () => {
     if (products.length > 0) {
         products.filter((product) => {
-            const { id, name, price, purchase_price, status, qty, subTotal } =
-                product;
+            const {
+                id,
+                name,
+                price,
+                purchase_price,
+                status,
+                qty,
+                subTotalPurchase,
+            } = product;
 
             axios
                 .get(`/api/product/${id}`)
@@ -79,7 +86,7 @@ const getTransaction = () => {
                                 <input type="hidden" name="product_qty[]" value="${qty}">
                                 <p class="col-md-6 m-0 p-0 text-center">${name}</p>
                                 <p class="col-md-1 m-0 p-0 text-center">${qty}</p>
-                                <p class="col-md-3 m-0 p-0 text-center">${subTotal}</p>
+                                <p class="col-md-3 m-0 p-0 text-center">${subTotalPurchase}</p>
                                 <p class="col-md-2 m-0 p-0 text-center">
                                     <button type="button" class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteProduct(this)">
                                         <i class="fas fa-trash"></i>
@@ -166,6 +173,7 @@ addProductBtn.addEventListener("click", () => {
                         data.purchase_price * parseInt(qtyProduct.value),
                 });
 
+                setProducts();
                 getTotal();
             })
             .catch((err) => console.log(err));
@@ -195,6 +203,7 @@ const deleteProduct = (e) => {
 
             singleProduct.remove();
 
+            setProducts();
             getTotal();
         })
         .catch((err) => console.log(err));
