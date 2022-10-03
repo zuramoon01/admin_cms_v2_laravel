@@ -12,6 +12,32 @@
             </div>
         </x-slot:title>
 
+        <x-slot:search>
+            <form id="search-product" class="form-inline d-flex flex-column align-items-start"
+                style="padding: 1.25rem 1.25rem 0rem 1.25rem; gap:10px;"
+                action="{{ url(request()->route()->getPrefix()) . '/search' }}">
+                <div class="d-flex" style="gap:10px;">
+                    <x-partials._input-text name="transaction_id" label="Transaction Id" :value="request('transaction_id')"
+                        :isLabel=false />
+                    <x-partials._input-text name="customer_name" label="Customer Name" :value="request('customer_name')"
+                        :isLabel=false />
+                    <x-partials._input-text name="customer_email" label="Customer Email" :value="request('customer_email')"
+                        :isLabel=false />
+                    <x-partials._input-select name="status" label="Status" routeType="add" isLabel="false">
+                        <option @selected(request('status') === '0') value="0">Cancelled</option>
+                        <option @selected(request('status') === '1') value="1">Pending</option>
+                        <option @selected(request('status') === '2') value="2">Done / Paid</option>
+                    </x-partials._input-select>
+                    <x-partials._input-date name="date" label="" :value="request('date')" :isLabel=false />
+                </div>
+
+                <div class="d-flex" style="gap:10px;">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-warning">Reset</a>
+                </div>
+            </form>
+        </x-slot:search>
+
         <x-slot:colgroup>
             @foreach ($colSizes as $size)
                 <col class="col-md-{{ $size }}">
@@ -47,10 +73,12 @@
                 </td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center">
-                        <a href="{{ url(request()->path() . "/$transaction->id") }}"
-                            class="btn btn-warning btn-circle btn-sm mr-1">
-                            <i class="fas fa-pen"></i>
-                        </a>
+                        @if ($transaction->status === 1)
+                            <a href="{{ url(request()->path() . "/$transaction->id") }}"
+                                class="btn btn-warning btn-circle btn-sm mr-1">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        @endif
                         <button data-url="{{ url(request()->path() . "/$transaction->id") }}"
                             class="btn btn-danger btn-circle btn-sm ml-1" onclick="deleteItem(this)">
                             <i class="fas fa-trash"></i>

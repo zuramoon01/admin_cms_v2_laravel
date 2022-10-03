@@ -1,7 +1,9 @@
-@props(['name', 'label', 'value'])
+@props(['name', 'label', 'value', 'isLabel'])
 
 <div class="form-group">
-    <label for="{{ $name }}">{{ $label }}</label>
+    @if (!isset($isLabel))
+        <label for="{{ $name }}">{{ $label }}</label>
+    @endif
     <input type="date" class="form-control" id="{{ $name }}" name="{{ $name }}"
         value="{{ $value }}">
 </div>

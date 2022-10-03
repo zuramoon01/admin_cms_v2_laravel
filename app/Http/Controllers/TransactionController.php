@@ -11,7 +11,40 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        return view('transaction.index');
+        return view('transaction.index', ['transactions' => Transaction::all()]);
+    }
+
+    public function search(Request $request)
+    {
+        $transaction_id = $request->transaction_id;
+        $customer_name = $request->customer_name;
+        $customer_email = $request->customer_email;
+        $status = $request->status;
+        $date = join(explode('-', $request->date));
+
+        if (!$transaction_id && !$customer_name && $status === null && !$date) {
+            return to_route('transaction.index.view');
+        }
+
+        $transactions = new Transaction;
+
+        if ($transaction_id) {
+            $transactions = $transactions->where('transaction_id', 'like', "%$transaction_id%");
+        }
+        if ($customer_name) {
+            $transactions = $transactions->where('customer_name', 'like', "%$customer_name%");
+        }
+        if ($customer_email) {
+            $transactions = $transactions->where('customer_email', 'like', "%$customer_email%");
+        }
+        if ($status !== null) {
+            $transactions = $transactions->where('status', $status);
+        }
+        if ($date) {
+            $transactions = $transactions->where('transaction_id', 'like',  "%$date%");
+        }
+
+        return view('transaction.index', ['transactions' => $transactions->get()]);
     }
 
     public function create()

@@ -85,6 +85,8 @@ Route::middleware(['auth:sanctum', 'route.authorization'])->group(function () {
     Route::controller(TransactionController::class)
         ->prefix('/transactions')
         ->name('transaction.')->group(function () {
+            Route::get('/search', 'search')->name('search.view');
+
             Route::get('/', 'index')->name('index.view');
             Route::get('/create', 'create')->name('create.add');
             Route::post('/', 'store')->name('store.add');

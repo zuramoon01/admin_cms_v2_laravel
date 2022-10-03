@@ -16,7 +16,6 @@ class TransactionComposer
     protected $heading;
     protected $colSizes;
     protected $titles;
-    protected $transaction;
     protected $formInputs;
     protected $products;
     protected $vouchers;
@@ -27,7 +26,6 @@ class TransactionComposer
         $this->heading = "Transaction";
         $this->colSizes = [1, 2, 1, 2, 3, 1, 1, 1];
         $this->titles = [];
-        $this->transactions = Transaction::all();
         $this->formInputs = [
             [
                 "name" => 'customer_name',
@@ -121,7 +119,6 @@ class TransactionComposer
                 'heading' => $this->heading,
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
-                'transactions' => $this->transactions,
             ]);
         } elseif ($viewType === 'form') {
             $view->with([
