@@ -12,6 +12,21 @@
             </div>
         </x-slot:title>
 
+        <x-slot:search>
+            <form id="search-product" class="form-inline d-flex" style="padding: 1.25rem 1.25rem 0rem 1.25rem; gap: 10px;"
+                action="{{ url(request()->route()->getPrefix()) . '/search' }}">
+                <x-partials._input-text name="name" label="Name" :value="request('name')" :isLabel=false />
+                <x-partials._input-text name="code" label="Code" :value="request('code')" :isLabel=false />
+                <x-partials._input-select name="status" label="Status" routeType="add" isLabel="false">
+                    <option @selected(request('status') === '0') value="0">Non Active</option>
+                    <option @selected(request('status') === '1') value="1">Active</option>
+                </x-partials._input-select>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-warning">Reset</a>
+            </form>
+        </x-slot:search>
+
         <x-slot:colgroup>
             @foreach ($colSizes as $size)
                 <col class="col-md-{{ $size }}">
