@@ -22,7 +22,32 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('product.index');
+        return view('product.index', ['products' => Product::all()]);
+    }
+
+    public function search(Request $request)
+    {
+        $name = $request->name;
+        $code = $request->code;
+        $status = $request->status;
+
+        if (!$name && !$code && $status === null) {
+            return to_route('product.index.view');
+        }
+
+        $products = new Product;
+
+        if ($name) {
+            $products = $products->where('name', 'like', "%$name%");
+        }
+        if ($code) {
+            $products = $products->where('code', 'like', "%$code%");
+        }
+        if ($status !== null) {
+            $products = $products->where('status', $status);
+        }
+
+        return view('product.index', ['products' => $products->get()]);
     }
 
     public function create()
