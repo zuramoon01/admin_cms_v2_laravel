@@ -15,7 +15,6 @@ class ProductComposer
     protected $heading;
     protected $colSizes;
     protected $titles;
-    protected $product;
     protected $formInputs;
     protected $productCategories;
 
@@ -25,7 +24,6 @@ class ProductComposer
         $this->heading = "Product";
         $this->colSizes = [1, 2, 2, 3, 3, 1, 2];
         $this->titles = [];
-        $this->products = Product::all();
         $this->formInputs = [
             [
                 [
@@ -125,7 +123,6 @@ class ProductComposer
                 'heading' => $this->heading,
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
-                'products' => $this->products,
             ]);
         } elseif ($viewType === 'form') {
             $view->with([
