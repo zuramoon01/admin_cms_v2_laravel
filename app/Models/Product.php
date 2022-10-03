@@ -23,6 +23,8 @@ class Product extends Model
         'featured',
     ];
 
+    protected $with = ['productCategory'];
+
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class, 'product_categories_id');

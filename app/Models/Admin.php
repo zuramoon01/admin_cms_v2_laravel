@@ -23,6 +23,8 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = ['role'];
+
     public function role()
     {
         return $this->belongsTo(Role::class, 'roles_id');
