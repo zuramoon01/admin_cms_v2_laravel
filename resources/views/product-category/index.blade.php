@@ -6,7 +6,10 @@
             <div class="card-header py-3 d-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables {{ $heading }}</h6>
                 <div>
-                    <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-info">Semua Kategori</a>
+                    @if (request()->filled('product'))
+                        <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-info">Back to menu
+                            Categories</a>
+                    @endif
                     <a href="{{ url(request()->path() . '/create') }}" id="save" class="btn btn-primary ml-3">
                         <i class="fas fa-plus"></i>
                         Create
