@@ -23,11 +23,12 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $products = new Product;
-
         if ($request->isNotFilled(['product_category', 'name', 'code', 'status'])) {
             return to_route('product.index.view');
         }
+
+        $products = new Product;
+
         $productCategoryId = $request->product_category;
         $name = $request->name;
         $code = $request->code;
