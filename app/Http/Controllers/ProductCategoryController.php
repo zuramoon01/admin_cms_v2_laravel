@@ -9,9 +9,14 @@ use App\Models\ProductCategory;
 
 class ProductCategoryController extends Controller
 {
+    public function search(Request $request)
+    {
+        return view('product-category.index', ['productCategories' => ProductCategory::where('id', $request->product)->get()]);
+    }
+
     public function index()
     {
-        return view('product-category.index');
+        return view('product-category.index', ['productCategories' => ProductCategory::all()]);
     }
 
     public function create()

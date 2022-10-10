@@ -15,6 +15,7 @@
         <x-slot:search>
             <form id="search-product" class="form-inline d-flex" style="padding: 1.25rem 1.25rem 0rem 1.25rem; gap: 10px;"
                 action="{{ url(request()->route()->getPrefix()) . '/search' }}">
+                <x-partials._input-hidden name="product_category" :value="request('product_category')" />
                 <x-partials._input-text name="name" label="Name" :value="request('name')" :isLabel=false />
                 <x-partials._input-text name="code" label="Code" :value="request('code')" :isLabel=false />
                 <x-partials._input-select name="status" label="Status" routeType="add" isLabel="false">
@@ -55,7 +56,12 @@
         @foreach ($products as $product)
             <tr class='single-menu'>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $product->productCategory->category }}</td>
+                <td>
+                    <a href="{{ url('/product-categories/search?product=' . $product->productCategory->id) }}"
+                        style="text-decoration: underline;">
+                        {{ $product->productCategory->category }}
+                    </a>
+                </td>
                 <td>{{ "$product->code - $product->name" }}</td>
                 <td>{{ $product->price }}</td>
                 <td>{{ $product->purchase_price }}</td>

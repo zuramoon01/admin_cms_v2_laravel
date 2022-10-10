@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -20,34 +21,39 @@ class ProductController extends Controller
         return $validated;
     }
 
-    public function index()
-    {
-        return view('product.index', ['products' => Product::all()]);
-    }
-
     public function search(Request $request)
     {
+        $products = new Product;
+
+        if ($request->isNotFilled(['product_category', 'name', 'code', 'status'])) {
+            return to_route('product.index.view');
+        }
+        $productCategoryId = $request->product_category;
         $name = $request->name;
         $code = $request->code;
         $status = $request->status;
 
-        if (!$name && !$code && $status === null) {
-            return to_route('product.index.view');
+        if ($productCategoryId) {
+            $productCategory = ProductCategory::find($productCategoryId);
+
+            $products = $products->where('product_categories_id', $productCategory->id);
         }
-
-        $products = new Product;
-
         if ($name) {
             $products = $products->where('name', 'like', "%$name%");
         }
         if ($code) {
             $products = $products->where('code', 'like', "%$code%");
         }
-        if ($status !== null) {
+        if ($status) {
             $products = $products->where('status', $status);
         }
 
         return view('product.index', ['products' => $products->get()]);
+    }
+
+    public function index()
+    {
+        return view('product.index', ['products' => Product::all()]);
     }
 
     public function create()

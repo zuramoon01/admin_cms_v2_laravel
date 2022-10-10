@@ -5,10 +5,13 @@
         <x-slot:title>
             <div class="card-header py-3 d-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables {{ $heading }}</h6>
-                <a href="{{ url(request()->path() . '/create') }}" id="save" class="btn btn-primary ml-3">
-                    <i class="fas fa-plus"></i>
-                    Create
-                </a>
+                <div>
+                    <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-info">Semua Kategori</a>
+                    <a href="{{ url(request()->path() . '/create') }}" id="save" class="btn btn-primary ml-3">
+                        <i class="fas fa-plus"></i>
+                        Create
+                    </a>
+                </div>
             </div>
         </x-slot:title>
 
@@ -29,7 +32,12 @@
         @foreach ($productCategories as $productCategory)
             <tr class='single-menu'>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $productCategory->category }}</td>
+                <td>
+                    <a href="{{ url('/products/search?product_category=') . $productCategory->id }}"
+                        style="text-decoration: underline;">
+                        {{ $productCategory->category }}
+                    </a>
+                </td>
                 <td>{{ $productCategory->description }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center">

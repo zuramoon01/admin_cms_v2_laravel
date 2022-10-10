@@ -13,7 +13,6 @@ class ProductCategoryComposer
     protected $heading;
     protected $colSizes;
     protected $titles;
-    protected $productCategories;
     protected $formInputs;
 
     public function __construct()
@@ -22,7 +21,6 @@ class ProductCategoryComposer
         $this->heading = "Product Category";
         $this->colSizes = [1, 3, 7, 1];
         $this->titles = Schema::getColumnListing('product_categories');
-        $this->productCategories = ProductCategory::all();
         $this->formInputs = [
             [
                 "name" => 'category',
@@ -50,7 +48,6 @@ class ProductCategoryComposer
                 'heading' => $this->heading,
                 'colSizes' => $this->colSizes,
                 'titles' => $this->titles,
-                'productCategories' => $this->productCategories,
             ]);
         } elseif ($viewType === 'form') {
             $view->with([
