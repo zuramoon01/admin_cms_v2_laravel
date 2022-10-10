@@ -57,7 +57,15 @@
         @foreach ($transactions as $transaction)
             <tr class='single-menu'>
                 <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $transaction->transaction_id }}</td>
+                <td>
+                    @if ($transaction->status === 2)
+                        <a href="{{ url('/transactions/detail') }}"style="text-decoration: underline;">
+                            {{ $transaction->transaction_id }}
+                        </a>
+                    @else
+                        {{ $transaction->transaction_id }}
+                    @endif
+                </td>
                 <td>{{ $transaction->customer_name }}</td>
                 <td>{{ $transaction->total_purchase }}</td>
                 <td>{{ $transaction->additional_request }}</td>

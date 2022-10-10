@@ -1,5 +1,7 @@
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Tables {{ $heading }}</h1>
+@isset($heading)
+    <h1 class="h3 mb-2 text-gray-800">Tables {{ $heading }}</h1>
+@endisset
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">

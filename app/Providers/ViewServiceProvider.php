@@ -36,6 +36,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(['product-category.index', 'product-category.form'], ProductCategoryComposer::class);
         View::composer(['product.index', 'product.form'], ProductComposer::class);
         View::composer(['voucher.index', 'voucher.form'], VoucherComposer::class);
-        View::composer(['transaction.index', 'transaction.form'], TransactionComposer::class);
+        View::composer(['transaction.index', 'transaction.form', 'transaction.detail'], TransactionComposer::class);
     }
 }

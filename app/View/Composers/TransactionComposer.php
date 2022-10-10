@@ -15,17 +15,44 @@ class TransactionComposer
     protected $menus;
     protected $heading;
     protected $colSizes;
+    protected $customerColSizes;
+    protected $transactionDetailColSizes;
+    protected $voucherUsageColSizes;
     protected $titles;
+    protected $customerTitles;
+    protected $transactionDetailTitles;
+    protected $voucherUsageTitles;
     protected $formInputs;
     protected $products;
     protected $vouchers;
+    protected $detail;
 
     public function __construct()
     {
         $this->menus = Menu::all();
         $this->heading = "Transaction";
         $this->colSizes = [1, 2, 1, 2, 3, 1, 1, 1];
+        $this->customerColSizes = [3, 3, 2, 3, 1];
+        $this->transactionDetailColSizes = [3, 3, 3, 3];
+        $this->voucherUsageColSizes = [6, 6];
         $this->titles = [];
+        $this->customerTitles = [
+            'Customer Name',
+            'Customer Email',
+            'Customer Phone',
+            'Additional Request',
+            'Payment Method'
+        ];
+        $this->transactionDetailTitles = [
+            'Product',
+            'Quantity',
+            'Price',
+            'Total'
+        ];
+        $this->voucherUsageTitles = [
+            'Code',
+            'Discounted Value',
+        ];
         $this->formInputs = [
             [
                 "name" => 'customer_name',
@@ -106,6 +133,28 @@ class TransactionComposer
                 array_push($this->titles, $title);
             }
         }
+
+        $this->details =
+            [
+                [
+                    'heading' => true,
+                    'tableHeading' => 'Customer',
+                    'colSizes' => $this->customerColSizes,
+                    'tableTitle' => $this->customerTitles,
+                ],
+                [
+                    'heading' => false,
+                    'tableHeading' => 'Transaction Detail',
+                    'colSizes' => $this->transactionDetailColSizes,
+                    'tableTitle' => $this->transactionDetailTitles,
+                ],
+                [
+                    'heading' => false,
+                    'tableHeading' => 'Voucher Usage',
+                    'colSizes' => $this->voucherUsageColSizes,
+                    'tableTitle' => $this->voucherUsageTitles,
+                ],
+            ];
     }
 
     public function compose(View $view)
@@ -127,6 +176,12 @@ class TransactionComposer
                 'formInputs' => $this->formInputs,
                 'products' => $this->products,
                 'vouchers' => $this->vouchers,
+            ]);
+        } elseif ($viewType === 'detail') {
+            $view->with([
+                'menus' => $this->menus,
+                'heading' => "$this->heading Detail",
+                'details' => $this->details,
             ]);
         }
     }

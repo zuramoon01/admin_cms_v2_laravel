@@ -14,4 +14,9 @@ class VoucherUsage extends Model
         'vouchers_id',
         'discounted_value',
     ];
+
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class, 'vouchers_id');
+    }
 }

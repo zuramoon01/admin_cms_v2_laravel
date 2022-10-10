@@ -8,7 +8,7 @@
                 <div>
                     @if (request()->filled('product'))
                         <a href="{{ url(request()->route()->getPrefix()) }}" class="btn btn-info">Back to menu
-                            Categories</a>
+                            product category</a>
                     @endif
                     <a href="{{ url(request()->path() . '/create') }}" id="save" class="btn btn-primary ml-3">
                         <i class="fas fa-plus"></i>

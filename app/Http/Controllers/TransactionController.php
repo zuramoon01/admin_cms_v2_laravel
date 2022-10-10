@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use App\Models\VoucherUsage;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
-    {
-        return view('transaction.index', ['transactions' => Transaction::all()]);
-    }
 
     public function search(Request $request)
     {
@@ -45,6 +42,24 @@ class TransactionController extends Controller
         }
 
         return view('transaction.index', ['transactions' => $transactions->get()]);
+    }
+
+    public function detail()
+    {
+        $transaction = Transaction::find(1);
+        $transactionDetails = TransactionDetail::with('product')->where('transactions_id', $transaction->id)->get();
+        $voucherUsages = VoucherUsage::with('voucher')->where('transactions_id', $transaction->id)->get();
+
+        return view('transaction.detail', [
+            'transaction' => $transaction,
+            'transactionDetails' => $transactionDetails,
+            'voucherUsages' => $voucherUsages,
+        ]);
+    }
+
+    public function index()
+    {
+        return view('transaction.index', ['transactions' => Transaction::all()]);
     }
 
     public function create()
